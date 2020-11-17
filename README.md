@@ -5,57 +5,33 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/marie-alexandre/AUCcomparison.svg?branch=master)](https://travis-ci.com/marie-alexandre/AUCcomparison)
+<!-- [![Travis build status](https://travis-ci.com/marie-alexandre/AUCcomparison.svg?branch=master)](https://travis-ci.com/marie-alexandre/AUCcomparison) -->
+
 <!-- badges: end -->
 
-The goal of AUCcomparison is to …
+The goal of AUCcomparison is to propose a statistical test evaluating
+the difference of Area under the curve (AUC) of a given outcome between
+two distinct groups of individuals. To this end, longitudinal data
+obtained for subjects splitted into G distinct groups are fitted with a
+Mixed-Effects model whose fixed-effects (marginal dynamics) and
+random-effects (individual dynamics) are respectively modeled by
+group-structured polynomial or B-splines curves and individual
+polynomial or B-spline curves.
 
 ## Installation
 
-You can install the released version of AUCcomparison from
-[CRAN](https://CRAN.R-project.org) with:
+In order to use this package with all the functionalities, you need to
+install the package freeknotsplines whose only CRAN archive version is
+available. It can be installed with:
 
 ``` r
-install.packages("AUCcomparison")
+install.packages("https://cran.r-project.org/src/contrib/Archive/freeknotsplines/freeknotsplines_1.0.1.tar.gz",repos=NULL,dependencies = TRUE)
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+Once this package installed, you can install the development version of
+AUCcomparison from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("marie-alexandre/AUCcomparison")
 ```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(AUCcomparison)
-## basic example code
-```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!

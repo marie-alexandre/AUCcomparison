@@ -4,12 +4,12 @@
 \name{AUCcomparison-package}
 \alias{AUCcomparison}
 \alias{AUCcomparison-package}
-\title{AUCcomparison: What the Package Does (One Line, Title Case)}
+\title{AUCcomparison: Statistical test - Between group comparison of AUC}
 \description{
-What the package does (one paragraph).
+The goal of AUCcomparison is to propose a statistical test evaluating the difference of Area under the curve (AUC) of a given outcome between two distinct groups of individuals. To this end, longitudinal data obtained for subjects splitted into G distincts groups are fitted with a Mixed-Effects model whose fixed-effects (marginal dynamics) and random-effects (individual dynamics) are respectively modeled by group-structured polynomial or B-splines curves and individual polynomial or B-spline curves.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Marie Alexandre \email{marie.alexandre@inria.fr}
 
 }
 \keyword{internal}
