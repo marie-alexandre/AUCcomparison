@@ -1,0 +1,19 @@
+---
+title: "How to use the package 'AUCcomparison'"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use the package 'AUCcomparison'}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(AUCcomparison)
+```
