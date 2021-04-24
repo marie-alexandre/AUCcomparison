@@ -26,7 +26,7 @@
 #' 
 #' @rdname AUC_time_weights_estimation
 #' @export 
-#' @importFrom matlib
+#' @importFrom matlib inv
 
 
 AUC_time_weights_estimation <- function(time,method){
