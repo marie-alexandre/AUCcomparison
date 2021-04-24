@@ -26,7 +26,7 @@ Check_argument_Group_specific_AUC <- function(MEM_Pol_group,time,Groups,method,A
       argcheck = Check_MEM
     )
   }else{
-    if(length(MEM_Pol_group)<2 || names(MEM_Pol_group) %notin% c("Model_estimation","Model_features")){
+    if(length(MEM_Pol_group)<2 | names(MEM_Pol_group) %notin% c("Model_estimation","Model_features")){
       ArgumentCheck::addError(
         msg = "The list 'MEM_Pol_group' must contain at least two lists named 'Model_estimation' and 'Model_features' as defined by the function 'MEM_Polynomial_Group_structure'",
         argcheck = Check_MEM

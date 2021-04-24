@@ -41,7 +41,7 @@
 #' MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=data$Group,Id=data$id,Cens=data$cens)
 #' 
 #' # Estimation of the AUC for the two groups defined in the dataset
-#' AUC_estimation <- AUC_estimation <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=list(unique(data$time[which(data$Group == "Group1")]),unique(data$time[which(data$Group == "Group2")])),Groups=unique(data$Group))
+#' AUC_estimation <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=list(unique(data$time[which(data$Group == "Group1")]),unique(data$time[which(data$Group == "Group2")])),Groups=unique(data$Group))
 #' 
 #' # Estimation of the AUC only for the group "Group1"
 #' AUC_estimation_G1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=unique(data$time[which(data$Group == "Group1")]),Groups=c("Group1"))

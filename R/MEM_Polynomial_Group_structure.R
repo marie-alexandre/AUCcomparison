@@ -113,11 +113,9 @@
 #' @rdname MEM_Polynomial_Group_structure
 #' @export 
 #' @importFrom ArgumentCheck newArgCheck addError finishArgCheck addWarning addMessage
-#' @importFrom splines bs
+#' @importFrom stats setNames
+#' @importFrom splines bs predict
 #' @importFrom lmec lmec
-
-
-
 MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL,
                                            marginal_dyn_type="polynomial",ind_dyn_type="polynomial",
                                            global_intercept=TRUE,group_intercept=FALSE,degree_group=3,
