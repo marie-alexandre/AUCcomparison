@@ -114,7 +114,7 @@
 #' @export 
 #' @importFrom ArgumentCheck newArgCheck addError finishArgCheck addWarning addMessage
 #' @importFrom stats setNames
-#' @importFrom splines bs predict.bs
+#' @import splines
 #' @importFrom lmec lmec
 MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL,
                                            marginal_dyn_type="polynomial",ind_dyn_type="polynomial",
