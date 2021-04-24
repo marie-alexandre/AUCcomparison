@@ -6,6 +6,7 @@ Authors@R:
            family = "Alexandre",
            role = c("aut", "cre"),
            email = "marie.alexandre@inria.fr")
+Author: Marie Alexandre [aut,cre]
 Description: The goal of AUCcomparison is to propose a statistical test evaluating the difference of Area under the curve (AUC) of a given outcome between two distinct groups of individuals. To this end, longitudinal data obtained for subjects splitted into G distincts groups are fitted with a Mixed-Effects model whose fixed-effects (marginal dynamics) and random-effects (individual dynamics) are respectively modeled by group-structured polynomial or B-splines curves and individual polynomial or B-spline curves. 
 License: MIT + file LICENSE
 Encoding: UTF-8
