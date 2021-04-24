@@ -93,7 +93,6 @@
 #' @export 
 #' @importFrom ArgumentCheck newArgCheck addError finishArgCheck
 #' @importFrom dplyr setdiff
-#' @importFrom plyr ddply
 #' @importFrom stats bartlett.test qf pf p.adjust
 #' @importFrom gtools combinations
 ANOVA_AUC_Group_Specific <- function(MEM_Pol_group,Groups,Time_groups,Nb_id_group,common.interval=TRUE,method="trapezoid",Averaged=FALSE,conf_level=0.95,
