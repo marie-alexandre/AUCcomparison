@@ -58,11 +58,11 @@ MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=dat
 # Estimation of the AUC for the two groups defined in the dataset
 AUC_estimation <- AUC_estimation <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=list(unique(data$time[which(data$Group == "Group1")]),unique(data$time[which(data$Group == "Group2")])),Groups=unique(data$Group))
 
-Estimation of the AUC only for the group "Group1"
+# Estimation of the AUC only for the group "Group1"
 AUC_estimation_G1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=unique(data$time[which(data$Group == "Group1")]),Groups=c("Group1"))
 
-Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
- # We build the variable 'MEM_Pol_group.1' with the results of MEM estimation obtained for two groups (even if only "Group1" is called in AUC estimation function)
+# Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
+# We build the variable 'MEM_Pol_group.1' with the results of MEM estimation obtained for two groups (even if only "Group1" is called in AUC estimation function)
 MEM_Pol_group.1 <- list(Model_estimation=c(1.077,0.858,-0.061,0.0013,0.887,-0.066,0.0014), # c(global.intercept,beta1.G1,beta2.G1,beta2.G1,beta1.G2,beta2.G2,beta3.G2)
                         Model_features=list(Groups=c("Group1","Group2"),
                                             Marginal.dyn.feature=list(dynamic.type="polynomial",intercept=c(global.intercept=TRUE,group.intercept1=FALSE,group.intercept2=FALSE),polynomial.degree=c(3,3))))
