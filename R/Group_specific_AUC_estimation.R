@@ -1,5 +1,5 @@
 #' @title Area Under The Curve of Group-Specific Polynomial Marginal Dynamics
-#' @description This function estimates the area under the curve of marginal dynamics modeled by group-structured polynomials or B-spline curves.
+#' @description \loadmathjax This function estimates the area under the curve of marginal dynamics modeled by group-structured polynomials or B-spline curves.
 #' 
 #' @param MEM_Pol_group A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}. 
 #' 
@@ -27,6 +27,12 @@
 #' @param Groups a vector indicating the names of the groups belonging to the set of groups involved in \code{MEM_Pol_group} for which we want to estimate the AUC  (a subset or the entire set of groups involved in the model can be considered). If NULL (default), the AUC for all the groups involved the MEM is calculated.
 #' @param method a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with the "not-a-knot" spline boundary conditions. 
 #' @param Averaged a logical scalar. If TRUE, the function return the normalized AUC (nAUC) computed as the AUC divided by the range of the time calculation. If FALSE (default), the classic AUC is calculated.
+#' 
+#' @details The area under the curve for the group g of interest is calculated as an approximation of the integral of the expected value of the estimated outcome Y specific to the group g. Assuming a time interval \mjsdeqn{[0,T_g]}, the AUC is then calculated as
+#' \mjsdeqn{AUC_g = \int_0^{T_g} E(\hat{Y_g})(t) dt}
+#' Similarly, the normalized AUC (nAUC) fir this same group is then defined as 
+#' \mjsdeqn{AUC_g = \frac{1}{T_g}\int_0^{T_g} E(\hat{Y_g})(t) dt}
+#' 
 #' @return A numerical vector containing the estimation of the AUC (or nAUC) for each group defined in the \code{Groups} vector.
 
 #' @examples 
@@ -37,29 +43,49 @@
 #' # Change factors in character vectors
 #' data$id <- as.character(data$id) ; data$Group <- as.character(data$Group)
 #' 
-#' # Example 1: We consider the variable \code{MEM_Pol_Group} as the output of our function \link[AUCcomparison]{MEM_Polynomial_Group_structure}
-#' MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=data$Group,Id=data$id,Cens=data$cens)
+#' # Example 1: We consider the variable \code{MEM_Pol_Group} as the output 
+#' # of our function \link[AUCcomparison]{MEM_Polynomial_Group_structure}
+#' MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=data$Group,
+#'                                                  Id=data$id,Cens=data$cens)
 #' 
 #' # Estimation of the AUC for the two groups defined in the dataset
-#' AUC_estimation <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=list(unique(data$time[which(data$Group == "Group1")]),unique(data$time[which(data$Group == "Group2")])),Groups=unique(data$Group))
+#' AUC_estimation <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,
+#'                      time=list(unique(data$time[which(data$Group == "Group1")]),
+#'                                unique(data$time[which(data$Group == "Group2")])),
+#'                      Groups=unique(data$Group))
 #' 
 #' # Estimation of the AUC only for the group "Group1"
-#' AUC_estimation_G1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,time=unique(data$time[which(data$Group == "Group1")]),Groups=c("Group1"))
+#' AUC_estimation_G1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_estimation,
+#'                          time=unique(data$time[which(data$Group == "Group1")]),
+#'                          Groups=c("Group1"))
 #'
-#' # Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
-#' # We build the variable 'MEM_Pol_group.1' with the results of MEM estimation obtained for two groups (even if only "Group1" is called in AUC estimation function)
-#' MEM_Pol_group.1 <- list(Model_estimation=c(1.077,0.858,-0.061,0.0013,0.887,-0.066,0.0014), # c(global.intercept,beta1.G1,beta2.G1,beta2.G1,beta1.G2,beta2.G2,beta3.G2)
+#' # Example 2: We consider results of MEM estimation from another source. 
+#' # We have to give build the variable 'MEM_Pol_group' with the good structure
+#' # We build the variable 'MEM_Pol_group.1' with the results of MEM estimation obtained 
+#' # for two groups (even if only "Group1" is called in AUC estimation function)
+#' MEM_Pol_group.1 <- list(Model_estimation=c(1.077,0.858,-0.061,0.0013,0.887,-0.066,0.0014), 
 #'                         Model_features=list(Groups=c("Group1","Group2"),
-#'                                             Marginal.dyn.feature=list(dynamic.type="polynomial",intercept=c(global.intercept=TRUE,group.intercept1=FALSE,group.intercept2=FALSE),polynomial.degree=c(3,3))))
+#'                                  Marginal.dyn.feature=list(dynamic.type="polynomial",
+#'                                         intercept=c(global.intercept=TRUE,
+#'                                                     group.intercept1=FALSE,
+#'                                                     group.intercept2=FALSE),
+#'                                          polynomial.degree=c(3,3))))
 #' 
-#'  # We build the variable 'MEM_Pol_group.2' with the results of MEM estimation obtained only for the group of interest (extraction)
-#' MEM_Pol_group.2 <- list(Model_estimation=c(1.077,0.858,-0.061,0.0013), # c(global.intercept,beta1.G1,beta2.G1,beta3.G1)
+#'# We build the variable 'MEM_Pol_group.2' with the results of MEM estimation obtained only for 
+#'# the group of interest (extraction)
+#' MEM_Pol_group.2 <- list(Model_estimation=c(1.077,0.858,-0.061,0.0013), 
 #'                         Model_features=list(Groups=c("Group1"),
-#'                                             Marginal.dyn.feature=list(dynamic.type="polynomial",intercept=c(global.intercept=TRUE,group.intercept1=FALSE),polynomial.degree=c(3))))
+#'                                  Marginal.dyn.feature=list(dynamic.type="polynomial",
+#'                                         intercept=c(global.intercept=TRUE,
+#'                                                     group.intercept1=FALSE),
+#'                                          polynomial.degree=c(3))))
 #'                       
 #'# Estimation of the AUC for the group "Group1"
-#' AUC_estimation_G1.1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group.1,time=unique(data$time[which(data$Group == "Group1")]),Groups=c("Group1"))
-#' AUC_estimation_G1.2 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group.2,time=unique(data$time[which(data$Group == "Group1")]))
+#' AUC_estimation_G1.1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group.1,
+#'                                  time=unique(data$time[which(data$Group == "Group1")]),
+#'                                  Groups=c("Group1"))
+#' AUC_estimation_G1.2 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group.2,
+#'                                  time=unique(data$time[which(data$Group == "Group1")]))
 
 
 

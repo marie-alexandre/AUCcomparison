@@ -25,8 +25,9 @@
 #' 
 #' @param Group1 a character scalar indicating the name of the first group whose marginal dynamics must be considered. This group name must belong to the set of groups involved in the MEM (see \code{Groups} vector in \code{MEM_Pol_group}). 
 #' @param Group2 a character scalar indicating the name of the second group whose marginal dynamics must be considered. This group name must belong to the set of groups involved in the MEM (see \code{Groups} vector in \code{MEM_Pol_group}). 
-#' @param time.G1 a numerical vector of time points (x-axis coordinates) to use for the variance of the Group1 AUC calculation (AUC and its variance use the same time points).
-#' @param time.G2 a numerical vector of time points (x-axis coordinates) to use for the variance of the Group2 AUC calculation (AUC and its variance use the same time points).
+#' @param time.G1 a numerical vector of time points (x-axis coordinates) to use for the variance of the Group1 AUC calculation.
+#' @param time.G2 a numerical vector of time points (x-axis coordinates) to use for the variance of the Group2 AUC calculation.
+#' @param common.interval a logical scalar. If FALSE, the variance of difference of AUC is calculated as the variance of the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the variance is estimated on a common interval of time defined as the intersect of the two group-specific interval (see @details for more details).
 #' @param method  a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this verion, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.
 #' @param Group.dependence a logical scalar indicating whether the two groups, whose the difference of AUC (\mjseqn{\Delta \text{AUC}}) is studied, are considered as dependent. By default, this variable is defined as TRUE.
 #' @param Averaged a logical scalar. If TRUE, the function return the difference of normalized AUC (nAUC) where nAUC is computated as the AUC divided by the range of time of calculation. If FALSE (default), the classic AUC is calculated.
@@ -71,10 +72,19 @@
 #' @importFrom splines bs
 #' 
 
-Group_specific_Var_Delta_AUC_estimation <- function(MEM_Pol_group,Group1,Group2,time.G1,time.G2,method="trapezoid",Group.dependence=TRUE,Averaged=FALSE){
+Group_specific_Var_Delta_AUC_estimation <- function(MEM_Pol_group,Group1,Group2,time.G1,time.G2,common.interval=TRUE,method="trapezoid",Group.dependence=TRUE,Averaged=FALSE){
   
   # Step 1: Verification of the type of arguments
   # ----- #
+  # Verification of 'common.interval'
+  Check_commonTime <- ArgumentCheck::newArgCheck()
+  if(isFALSE(is.logical(common.interval))){
+    ArgumentCheck::addError(
+      msg = "Error - The variable 'common.interval' must be a boolean",
+      argcheck = Check_commonTime
+    )
+  }
+  ArgumentCheck::finishArgCheck(Check_commonTime)
   # Verification of 'Group.dependence'
   Check_group.dep <- ArgumentCheck::newArgCheck()
   if(isFALSE(is.logical(Group.dependence))){
@@ -95,9 +105,22 @@ Group_specific_Var_Delta_AUC_estimation <- function(MEM_Pol_group,Group1,Group2,
   ArgumentCheck::finishArgCheck(Check_groups_null)
   
   Groups <- c(Group1,Group2)
+  
+  if(common.interval == TRUE){
+    min.time.interval <- max(min(time.G1,na.rm=TRUE),min(time.G2,na.rm=TRUE),na.rm=TRUE)
+    max.time.interval <- min(max(time.G1,na.rm=TRUE),max(time.G2,na.rm=TRUE),na.rm=TRUE)
+    if(min.time.interval > max.time.interval){
+      stop("Impossible to estimate the difference of AUC on the common interval of time for the two group: the inrestection of the two intervals is equal to an empty interval.")
+    }else if(min.time.interval == max.time.interval){
+      stop(paste("Impossible to estimate the difference of AUC on the common interval of time for the two group: the inrestection of the two intervals is equal to a single time point:",min.time.interval))
+    }else{
+      time.G1 <- time.G1[which(time.G1 >= min.time.interval & time.G1 <= max.time.interval)]
+      time.G2 <- time.G2[which(time.G2 >= min.time.interval & time.G2 <= max.time.interval)]
+    }
+  }
+  
   time <- list(time.G1,time.G2)
   Check_argument_Group_specific_Var_AUC(MEM_Pol_group,time,Groups,method,Averaged)
-  
   
   Model_features <- MEM_Pol_group$Model_features
   Marginal_dynamics <- Model_features$Marginal.dyn.feature

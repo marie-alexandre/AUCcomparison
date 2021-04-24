@@ -27,6 +27,7 @@
 #' @param Group2 a character scalar indicating the name of the second group whose marginal dynamics must be considered. This group name must belong to the set of groups involved in the MEM (see \code{Groups} vector in \code{MEM_Pol_group}).
 #' @param time.G1 a numerical vector of time points (x-axis coordinates) to use for the Group1 AUC calculation.
 #' @param time.G2 a numerical vector of time points (x-axis coordinates) to use for the Group2 AUC calculation.
+#' @param common.interval a logical scalar. If FALSE, the difference of AUC is calculated as the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the difference of AUC is estimated on a common interval of time defined as the intersect of the two group-specific interval (see @details for more details).
 #' @param method a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.
 #' @param Averaged a logical scalar. If TRUE, the function return the difference of normalized AUC (nAUC) where nAUC is computated as the AUC divided by the range of time of calculation. If FALSE (default), the classic AUC is calculated.
 #' @return A numerical scalar defined as \mjseqn{\Delta \text{AUC} = \text{AUC}_2 - \text{AUC}_1} (or \mjseqn{\Delta\text{nAUC} = \text{nAUC}_2 - \text{nAUC}_1})  with \mjseqn{\text{AUC}_1} (or \mjseqn{\text{nAUC}_1}) and  \mjseqn{\text{AUC}_2} (or \mjseqn{\text{nAUC}_2}) being respectively estimated as the AUC (or nAUC) for the Group1 and for the Group2.
@@ -60,7 +61,33 @@
 #' @rdname Group_specific_Delta_AUC_estimation
 #' @export 
 
-Group_specific_Delta_AUC_estimation <- function(MEM_Pol_group,Group1,Group2,time.G1,time.G2,method="trapezoid",Averaged=FALSE){
+Group_specific_Delta_AUC_estimation <- function(MEM_Pol_group,Group1,Group2,time.G1,time.G2,common.interval=TRUE,method="trapezoid",Averaged=FALSE){
+  
+  # Check of common.interval argument
+  Check_commonTime <- ArgumentCheck::newArgCheck()
+  if(isFALSE(is.logical(common.interval))){
+    ArgumentCheck::addError(
+      msg = "Error - The variable 'common.interval' must be a boolean",
+      argcheck = Check_commonTime
+    )
+  }
+  ArgumentCheck::finishArgCheck(Check_commonTime)
+  
+  
+  if(common.interval == TRUE){
+    min.time.interval <- max(min(time.G1,na.rm=TRUE),min(time.G2,na.rm=TRUE),na.rm=TRUE)
+    max.time.interval <- min(max(time.G1,na.rm=TRUE),max(time.G2,na.rm=TRUE),na.rm=TRUE)
+    
+    if(min.time.interval > max.time.interval){
+      stop("Impossible to estimate the difference of AUC on the common interval of time for the two group: the inrestection of the two intervals is equal to an empty interval.")
+    }else if(min.time.interval == max.time.interval){
+      stop(paste("Impossible to estimate the difference of AUC on the common interval of time for the two group: the inrestection of the two intervals is equal to a single time point:",min.time.interval))
+    }else{
+      time.G1 <- time.G1[which(time.G1 >= min.time.interval & time.G1 <= max.time.interval)]
+      time.G2 <- time.G2[which(time.G2 >= min.time.interval & time.G2 <= max.time.interval)]
+    }
+  }
+  
   AUC_Group1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group,time=time.G1,Groups=Group1,method=method,Averaged=Averaged) 
   AUC_Group2 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group,time=time.G2,Groups=Group2,method=method,Averaged=Averaged) 
   Delta_AUC <- as.numeric(AUC_Group2 - AUC_Group1)

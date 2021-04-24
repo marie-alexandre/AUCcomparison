@@ -5,8 +5,8 @@
 \title{Variance of the Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
 Group_specific_Var_Delta_AUC_estimation(MEM_Pol_group, Group1, Group2,
-  time.G1, time.G2, method = "trapezoid", Group.dependence = TRUE,
-  Averaged = FALSE)
+  time.G1, time.G2, common.interval = TRUE, method = "trapezoid",
+  Group.dependence = TRUE, Averaged = FALSE)
 }
 \arguments{
 \item{MEM_Pol_group}{A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}.
@@ -35,9 +35,11 @@ If \code{dynamic.type} is defined as 'spline':
 
 \item{Group2}{a character scalar indicating the name of the second group whose marginal dynamics must be considered. This group name must belong to the set of groups involved in the MEM (see \code{Groups} vector in \code{MEM_Pol_group}).}
 
-\item{time.G1}{a numerical vector of time points (x-axis coordinates) to use for the variance of the Group1 AUC calculation (AUC and its variance use the same time points).}
+\item{time.G1}{a numerical vector of time points (x-axis coordinates) to use for the variance of the Group1 AUC calculation.}
 
-\item{time.G2}{a numerical vector of time points (x-axis coordinates) to use for the variance of the Group2 AUC calculation (AUC and its variance use the same time points).}
+\item{time.G2}{a numerical vector of time points (x-axis coordinates) to use for the variance of the Group2 AUC calculation.}
+
+\item{common.interval}{a logical scalar. If FALSE, the variance of difference of AUC is calculated as the variance of the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the variance is estimated on a common interval of time defined as the intersect of the two group-specific interval (see @details for more details).}
 
 \item{method}{a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this verion, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.}
 

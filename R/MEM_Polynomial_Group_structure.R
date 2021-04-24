@@ -918,7 +918,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
     for(i in 1:length(IDs)){
       data_pat <- data[which(data$Id == IDs[i]),]
       if(same_base_group_ind & marginal_dyn_type == "spline"){
-        covariate_spline_pat <- splines::predict.bs(Bsplines_groups[[unique(data_pat$Group)]],newx=data_pat$x)
+        covariate_spline_pat <- predict(Bsplines_groups[[unique(data_pat$Group)]],newx=data_pat$x)
       }else{
         if(is.null(Boundary.knots_ind)){
           covariate_spline_pat <- splines::bs(data_pat$x,df=df_ind,knots=knots_ind[[i]],degree=degree_ind)

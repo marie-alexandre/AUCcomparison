@@ -20,8 +20,7 @@
 #'  \mjsdeqn{W_j = \sum_{p=2}^m -\frac{(t_p-t_{p-1})^3}{24}(u_{pj}+u_{p-1j}) + W_j^{trap.}}
 #'  where \mjseqn{(u_{pj})} is the element \mjseqn{U(p,j)} with \mjseqn{U} a matrix defined as \mjseqn{U = A^{-1}B}.
 #'  
-#' 
-#' 
+#'  
 #' @return A numerical scalar with same length than the vector \code{time} corresponding to the weights \emph{W}.
 #' 
 #' @rdname AUC_time_weights_estimation
