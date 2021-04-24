@@ -32,15 +32,15 @@ Optimal_knot_research <- function(data,degree=3,minknot=2,maxknot=2,criteria="AI
   }else{
     tmp_research <- tmp_research[which(unlist(lapply(tmp_research, function(x) class(x))) == "freekt")]
     if(criteria == "AIC"){
-      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(AIC.freekt(x),error=function(cond){return(Inf)})}))
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(freeknotsplines::AIC.freekt(x),error=function(cond){return(Inf)})}))
     }else if(criteria == "AICc"){
-      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(AICc.freekt(x),error=function(cond){return(Inf)})}))
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(freeknotsplines::AICc.freekt(x),error=function(cond){return(Inf)})}))
     }else if(criteria == "BIC"){
-      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(BIC.freekt(x),error=function(cond){return(Inf)})}))
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(freeknotsplines::BIC.freekt(x),error=function(cond){return(Inf)})}))
     }else if(criteria == "adjAIC"){
-      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(adjAIC.freekt(x),error=function(cond){return(Inf)})}))
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(freeknotsplines::adjAIC.freekt(x),error=function(cond){return(Inf)})}))
     }else if(criteria == "adjGCV"){
-      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(adjGCV.freekt(x),error=function(cond){return(Inf)})}))
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(freeknotsplines::adjGCV.freekt(x),error=function(cond){return(Inf)})}))
     }else if(criteria == "GCV"){
       criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(x@GCV,error=function(cond){return(Inf)})}))
     }else{

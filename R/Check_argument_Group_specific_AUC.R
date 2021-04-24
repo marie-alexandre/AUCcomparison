@@ -9,7 +9,7 @@
 #' @details DETAILS
 
 #' @seealso 
-#'  \code{\link[ArgumentCheck]{addError}}
+#' \code{\link[ArgumentCheck]{addError}}
 #' @rdname Check_argument_Group_specific_AUC
 #' @importFrom ArgumentCheck newArgCheck addError finishArgCheck addMessage
 #' @export
