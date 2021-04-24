@@ -4,6 +4,7 @@
 #' @param degree an integer scalar indicating the degree of the spline it. By default, this value is fixed at 3
 #' @param minknot an integer scalar indicating the minimum number of knots to consider. By default, this variable is fixed at 2
 #' @param maxknot an integer scalar indicating the maximum number of knots to consider. By default, this variable is fixed at 2.
+#' @param criteria a character varaiable indicating the criterion to be used for determining the number and the positions of knots. Choices are "AIC" for Akaike information criterion (by default), "AICc" for corrected AIC, "BIC" for Bayesian information criterion, "adjAIC" for an adjusted version of AIC, "GCV" for generalized cross-validation and "adjGCV" for an adjusted version of GCV.
 #' @param ... Further arguments to be passed (see \link[freeknotsplines]{freeknotfit} for more details).
 #' 
 #' @return A numerical vector of optimal knots whose number can varied from \code{minknot} to \code{maxknot}
@@ -16,7 +17,7 @@
 #' @importFrom freeknotsplines freelsgen
 
 
-Optimal_knot_research <- function(data,degree=3,minknot=2,maxknot=2,...){
+Optimal_knot_research <- function(data,degree=3,minknot=2,maxknot=2,criteria="AIC",...){
   knot_research <- NULL
   
   tested_numknots <- seq(minknot,maxknot)
@@ -30,9 +31,24 @@ Optimal_knot_research <- function(data,degree=3,minknot=2,maxknot=2,...){
     stop("Unable to estimate optimal knots with these arguments")
   }else{
     tmp_research <- tmp_research[which(unlist(lapply(tmp_research, function(x) class(x))) == "freekt")]
-    AIC <- unlist(lapply(tmp_research, function(x){tryCatch(AIC(x), error=function(cond){return(Inf)})}))
-    if(abs(min(AIC)) < Inf){
-      knot_research <- tmp_research[[which.min(AIC)]]
+    # Estimation of the criteria
+    if(criteria == "AIC"){
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(AIC.freekt(x),error=function(cond){return(Inf)})}))
+    }else if(criteria == "AICc"){
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(AICc.freekt(x),error=function(cond){return(Inf)})}))
+    }else if(criteria == "BIC"){
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(BIC.freekt(x),error=function(cond){return(Inf)})}))
+    }else if(criteria == "adjAIC"){
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(adjAIC.freekt(x),error=function(cond){return(Inf)})}))
+    }else if(criteria == "adjGCV"){
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(adjGCV.freekt(x),error=function(cond){return(Inf)})}))
+    }else if(criteria == "GCV"){
+      criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(x@GCV,error=function(cond){return(Inf)})}))
+    }else{
+      stop("The chosen criterion does not belong to the list of available criteria")
+    }
+    if(abs(min(criteria_values)) < Inf){
+      knot_research <- tmp_research[[which.min(criteria_values)]]
     }else{
       stop("Unable to estimate optimate knots of finite value of AIC.")
     }
