@@ -35,7 +35,7 @@ MEM_Polynomial_Group_structure(y, x = NULL, Group = NULL, Id = NULL,
 
 \item{degree_group}{an integer scalar (same option for all groups) or vector. The variable indicates for each group either the degree of polynomial functions or spline curves describing marginal dynamics. By default, the variable is fixed at 3.}
 
-\item{Adaptive}{an optional character variable whether B-spline curves are built with internal knot positions optimally estimated according to data (see \link[AUCcomparison]{Optimal_knot_research} and @tagName details for more details). Options are 'none' (default), 'group , 'individual', and 'both'.}
+\item{Adaptive}{an optional character variable whether B-spline curves are built with internal knot positions optimally estimated according to data (see \link[AUCcomparison]{Optimal_knot_research} and @details for more details). Options are 'none' (default), 'group , 'individual', and 'both'.}
 
 \item{knotnumcrit}{an optional character variable indicating the criterion to be used for determining the number of internal knots in B-splines. See @tagName details for more details.}
 
