@@ -4,18 +4,9 @@
 \alias{Stat_test_Delta_AUC_Group_Specific}
 \title{T-statistic of the Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
-Stat_test_Delta_AUC_Group_Specific(
-  MEM_Pol_group,
-  Group1,
-  Group2,
-  time.G1,
-  time.G2,
-  method = "trapezoid",
-  Group.dependence = TRUE,
-  Averaged = FALSE,
-  conf_level = 0.95,
-  alternative = "two.sided"
-)
+Stat_test_Delta_AUC_Group_Specific(MEM_Pol_group, Group1, Group2, time.G1,
+  time.G2, method = "trapezoid", Group.dependence = TRUE,
+  Averaged = FALSE, conf_level = 0.95, alternative = "two.sided")
 }
 \arguments{
 \item{MEM_Pol_group}{A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}.

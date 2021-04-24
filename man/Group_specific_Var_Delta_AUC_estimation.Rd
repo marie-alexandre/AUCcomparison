@@ -4,16 +4,9 @@
 \alias{Group_specific_Var_Delta_AUC_estimation}
 \title{Variance of the Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
-Group_specific_Var_Delta_AUC_estimation(
-  MEM_Pol_group,
-  Group1,
-  Group2,
-  time.G1,
-  time.G2,
-  method = "trapezoid",
-  Group.dependence = TRUE,
-  Averaged = FALSE
-)
+Group_specific_Var_Delta_AUC_estimation(MEM_Pol_group, Group1, Group2,
+  time.G1, time.G2, method = "trapezoid", Group.dependence = TRUE,
+  Averaged = FALSE)
 }
 \arguments{
 \item{MEM_Pol_group}{A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}.
@@ -66,7 +59,7 @@ data <- HIV_Simu_Dataset_Delta01_cens
 # Change factors in character vectors
 data$id <- as.character(data$id) ; data$Group <- as.character(data$Group)
 
-# Example 1: We consider the variable \code{MEM_Pol_Group} as the output of our function \link[AUCcomparison]{MEM_Polynomial_Group_structure}
+# Example 1: We consider the variable \\code{MEM_Pol_Group} as the output of our function \\link[AUCcomparison]{MEM_Polynomial_Group_structure}
 MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=data$Group,Id=data$id,Cens=data$cens)
 Var_Delta_AUC_estimation <- Group_specific_Var_Delta_AUC_estimation(MEM_Pol_group=MEM_estimation,Group1="Group1",Group2="Group2",
                                                                     time.G1=unique(data$time[which(data$Group=="Group1")]),

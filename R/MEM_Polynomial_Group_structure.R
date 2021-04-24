@@ -11,7 +11,7 @@
 #' @param global_intercept a logical scalar. If TRUE (default) a global intercept (no group-specific) is included in the marginal dynamics.
 #' @param group_intercept a logical scalar (same option for all groups) or vector. For each group, if TRUE, a group-specific intercept is included in the marginal dynamics. By default, this variable is defined as FALSE
 #' @param degree_group an integer scalar (same option for all groups) or vector. The variable indicates for each group either the degree of polynomial functions or spline curves describing marginal dynamics. By default, the variable is fixed at 3.
-#' @param Adaptive an optional character variable whether B-spline curves are built with internal knot positions optimally estimated according to data (see \link[AUCcomparison]{Optimal_knot_research} and @tagName details for more details). Options are 'none' (default), 'group , 'individual', and 'both'. 
+#' @param Adaptive an optional character variable whether B-spline curves are built with internal knot positions optimally estimated according to data (see \link[AUCcomparison]{Optimal_knot_research} and @details for more details). Options are 'none' (default), 'group , 'individual', and 'both'. 
 #' @param knotnumcrit an optional character variable indicating the criterion to be used for determining the number of internal knots in B-splines. See @tagName details for more details.
 #' @param min_knots_group an optional integer scalar indicating the minimum number of internal knots to consider in the research of optimal knots for marginal dynamics. By default, this variable fixed at 2. See @tagName details for more details.
 #' @param max_knots_group an optional integer scalar indicating the maximum number of internal knots to consider in the research of optimal knots for marginal dynamics. By default, this variable fixed at 2. See @tagName details for more details.
@@ -1026,3 +1026,4 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
                                       Individual.dyn.feature = individual.dyn.feature))
   return(Results)
 }
+

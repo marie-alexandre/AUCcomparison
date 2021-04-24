@@ -4,7 +4,8 @@
 \alias{Optimal_knot_research}
 \title{Optimal Research B-Spline Internal Knots}
 \usage{
-Optimal_knot_research(data, degree = 3, minknot = 2, maxknot = 2, ...)
+Optimal_knot_research(data, degree = 3, minknot = 2, maxknot = 2,
+  criteria = "AIC", ...)
 }
 \arguments{
 \item{data}{a data frame containing the independent variable (\emph{y}) and the dependent one (\emph{x}).}
@@ -14,6 +15,8 @@ Optimal_knot_research(data, degree = 3, minknot = 2, maxknot = 2, ...)
 \item{minknot}{an integer scalar indicating the minimum number of knots to consider. By default, this variable is fixed at 2}
 
 \item{maxknot}{an integer scalar indicating the maximum number of knots to consider. By default, this variable is fixed at 2.}
+
+\item{criteria}{a character varaiable indicating the criterion to be used for determining the number and the positions of knots. Choices are "AIC" for Akaike information criterion (by default), "AICc" for corrected AIC, "BIC" for Bayesian information criterion, "adjAIC" for an adjusted version of AIC, "GCV" for generalized cross-validation and "adjGCV" for an adjusted version of GCV.}
 
 \item{...}{Further arguments to be passed (see \link[freeknotsplines]{freeknotfit} for more details).}
 }

@@ -4,16 +4,14 @@
 \name{HIV_Simu_Dataset_Delta0_cens}
 \alias{HIV_Simu_Dataset_Delta0_cens}
 \title{HIV RNA Load Simulated Data for Delta AUC = 0 With Left-censored data}
-\format{
-A data frame with 4 columns and 1000 rows:
+\format{A data frame with 4 columns and 1000 rows:
 \tabular{ll}{
 \code{id} \tab The subject id. \cr
 \code{time} \tab Time of HIV RNA load measurements. \cr
 \code{Group} \tab Treatment group. \cr
 \code{VL} \tab The HIV RNA load measures. Measures are either equals to their true value (if VL > LOD) or to the LOD value (otherwise). \cr
 \code{Cens} \tab The indicator of left-censoring: 1 if VLtrue <= LOD and 0 otherwise. \cr
-}
-}
+}}
 \usage{
 HIV_Simu_Dataset_Delta0_cens
 }
