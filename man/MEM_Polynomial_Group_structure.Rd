@@ -37,33 +37,33 @@ MEM_Polynomial_Group_structure(y, x = NULL, Group = NULL, Id = NULL,
 
 \item{Adaptive}{an optional character variable whether B-spline curves are built with internal knot positions optimally estimated according to data (see \link[AUCcomparison]{Optimal_knot_research} and @details for more details). Options are 'none' (default), 'group , 'individual', and 'both'.}
 
-\item{knotnumcrit}{an optional character variable indicating the criterion to be used for determining the number of internal knots in B-splines. See @tagName details for more details.}
+\item{knotnumcrit}{an optional character variable indicating the criterion to be used for determining the number of internal knots in B-splines. See @details for more details.}
 
-\item{min_knots_group}{an optional integer scalar indicating the minimum number of internal knots to consider in the research of optimal knots for marginal dynamics. By default, this variable fixed at 2. See @tagName details for more details.}
+\item{min_knots_group}{an optional integer scalar indicating the minimum number of internal knots to consider in the research of optimal knots for marginal dynamics. By default, this variable fixed at 2. See @details for more details.}
 
-\item{max_knots_group}{an optional integer scalar indicating the maximum number of internal knots to consider in the research of optimal knots for marginal dynamics. By default, this variable fixed at 2. See @tagName details for more details.}
+\item{max_knots_group}{an optional integer scalar indicating the maximum number of internal knots to consider in the research of optimal knots for marginal dynamics. By default, this variable fixed at 2. See @details for more details.}
 
-\item{knots_group}{a numerical vector (same option for all groups) or a list of either numerical vectors or NULL (one for each group) indicating the internal knots for group-specific B-spline curves. By default, this variable is defined as NULL (see \link[splines]{bs} and @tagName details for more details).}
+\item{knots_group}{a numerical vector (same option for all groups) or a list of either numerical vectors or NULL (one for each group) indicating the internal knots for group-specific B-spline curves. By default, this variable is defined as NULL (see \link[splines]{bs} and @details for more details).}
 
-\item{df_group}{an integer scalar (same option for all groups) or vector indicating the degrees of freedom to consider to build marginal B-spline curves. One can specify \code{df_group} rather than \code{knots_group} (see \link[splines]{bs} for more details). By default, this variable is defined as NULL. See @tagName details for more details.}
+\item{df_group}{an integer scalar (same option for all groups) or vector indicating the degrees of freedom to consider to build marginal B-spline curves. One can specify \code{df_group} rather than \code{knots_group} (see \link[splines]{bs} for more details). By default, this variable is defined as NULL. See @details for more details.}
 
-\item{Boundary.knots_group}{a numerical vector (same option for all groups) or a list of either numerical vectors or NULL (one for each group) indicating the boundary knots for group-specific B-spline curves. By default, this variable is defined as NULL (see \link[splines]{bs} and @tagName details for more details).}
+\item{Boundary.knots_group}{a numerical vector (same option for all groups) or a list of either numerical vectors or NULL (one for each group) indicating the boundary knots for group-specific B-spline curves. By default, this variable is defined as NULL (see \link[splines]{bs} and @details for more details).}
 
 \item{ind_intercept}{a logical scalar. If TRUE, an intercept is included in the individual dynamics (random effects). By default, this variable is defined as FALSE.}
 
 \item{degree_ind}{an integer scalar indicating either the degree of the polynomial functions or the B-spline curves describing individual dynamics. By default, this variable is fixed at 2.}
 
-\item{min_knots_ind}{an optional interger scalar indicating the minimum number of internal knots to consider in the research of optimal knots for individual dynamics. By default, this variable is fixed at 2. See @tagName details for more details.}
+\item{min_knots_ind}{an optional interger scalar indicating the minimum number of internal knots to consider in the research of optimal knots for individual dynamics. By default, this variable is fixed at 2. See @details for more details.}
 
-\item{max_knots_ind}{an optional interger scalar indicating the maximum number of internal knots to consider in the research of optimal knots for individual dynamics. By default, this variable is fixed at 2. See @tagName details for more details.}
+\item{max_knots_ind}{an optional interger scalar indicating the maximum number of internal knots to consider in the research of optimal knots for individual dynamics. By default, this variable is fixed at 2. See @details for more details.}
 
-\item{same_base_group_ind}{an optional logical scalar indicating whether or not the same B-spline basis must be considered in group-specific and individual dynamics. If TRUE, each individual B-spline basis will be build as the corresponding group-specific B-spline basis evaluted at the individual predictor variable. By default, this variable is defined as FALSE. See @tagName details for more details.}
+\item{same_base_group_ind}{an optional logical scalar indicating whether or not the same B-spline basis must be considered in group-specific and individual dynamics. If TRUE, each individual B-spline basis will be build as the corresponding group-specific B-spline basis evaluted at the individual predictor variable. By default, this variable is defined as FALSE. See @details for more details.}
 
-\item{knots_ind}{a numerical vector (same option for all individuals) or a list of numerical values or NULL indicating the internal knots for individual-specific B-spline curves. If this variable is defined as a list, internal knots can either be defined individually (one vector or NULL for each Id value), equivalent for each individual belong to the same group (one vector or NULL for each Group), or equivalent for each individual (one vector or NULL). By default, this variable is defined as NULL (see \link[splines]{bs} and @tagName details for more details).}
+\item{knots_ind}{a numerical vector (same option for all individuals) or a list of numerical values or NULL indicating the internal knots for individual-specific B-spline curves. If this variable is defined as a list, internal knots can either be defined individually (one vector or NULL for each Id value), equivalent for each individual belong to the same group (one vector or NULL for each Group), or equivalent for each individual (one vector or NULL). By default, this variable is defined as NULL (see \link[splines]{bs} and @details for more details).}
 
-\item{df_ind}{an integer scalar (same option for all individuals) or vector indicating the degrees of freedom to consier to build individual B-splines curves. This variable can be choosen different for each individual or equivalent for each individual belonging to the same group (one value for each group). By default, this variable is defined as NULL(see \link[splines]{bs} and @tagName details for more details).}
+\item{df_ind}{an integer scalar (same option for all individuals) or vector indicating the degrees of freedom to consier to build individual B-splines curves. This variable can be choosen different for each individual or equivalent for each individual belonging to the same group (one value for each group). By default, this variable is defined as NULL(see \link[splines]{bs} and @details for more details).}
 
-\item{Boundary.knots_ind}{a numerical vector indicating the boundary knots for individual-specific B-spline curves. By default, this variable is defined as NULL (see \link[splines]{bs} and @tagName details for more details).}
+\item{Boundary.knots_ind}{a numerical vector indicating the boundary knots for individual-specific B-spline curves. By default, this variable is defined as NULL (see \link[splines]{bs} and @details for more details).}
 
 \item{...}{Further arguments to be passed (see \link[lmec]{lmec} for more details).}
 }

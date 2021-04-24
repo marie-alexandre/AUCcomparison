@@ -31,7 +31,6 @@ Optimal_knot_research <- function(data,degree=3,minknot=2,maxknot=2,criteria="AI
     stop("Unable to estimate optimal knots with these arguments")
   }else{
     tmp_research <- tmp_research[which(unlist(lapply(tmp_research, function(x) class(x))) == "freekt")]
-    # Estimation of the criteria
     if(criteria == "AIC"){
       criteria_values <- unlist(lapply(tmp_research, function(x){tryCatch(AIC.freekt(x),error=function(cond){return(Inf)})}))
     }else if(criteria == "AICc"){
