@@ -28,10 +28,10 @@
 #' @param method a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with the "not-a-knot" spline boundary conditions. 
 #' @param Averaged a logical scalar. If TRUE, the function return the normalized AUC (nAUC) computed as the AUC divided by the range of the time calculation. If FALSE (default), the classic AUC is calculated.
 #' 
-#' @details The area under the curve for the group g of interest is calculated as an approximation of the integral of the expected value of the estimated outcome Y specific to the group g. Assuming a time interval \mjsdeqn{[0,T_g]}, the AUC is then calculated as
+#' @details The area under the curve for the group g of interest is calculated as an approximation of the integral of the expected value of the estimated outcome Y specific to the group g. Assuming a time interval [0,Tg], the AUC is then calculated as
 #' \mjsdeqn{AUC_g = \int_0^{T_g} E(\hat{Y_g})(t) dt}
-#' Similarly, the normalized AUC (nAUC) fir this same group is then defined as 
-#' \mjsdeqn{AUC_g = \frac{1}{T_g}\int_0^{T_g} E(\hat{Y_g})(t) dt}
+#' Similarly, the normalized AUC (nAUC) for this same group is then defined as 
+#' \mjsdeqn{nAUC_g = \frac{1}{T_g}\int_0^{T_g} E(\hat{Y_g})(t) dt}
 #' 
 #' @return A numerical vector containing the estimation of the AUC (or nAUC) for each group defined in the \code{Groups} vector.
 
