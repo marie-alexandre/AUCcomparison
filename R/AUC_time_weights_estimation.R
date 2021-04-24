@@ -104,7 +104,7 @@ AUC_time_weights_estimation <- function(time,method){
     w_trap <- AUC_time_weights_estimation(time=time,method="trapezoid")
     mat_A <- AUC_Spline_matrix_A(time=time)
     mat_B <- AUC_Spline_matrix_B(time=time)
-    mat_U <- inv(mat_A)%*%mat_B
+    mat_U <- matlib::inv(mat_A)%*%mat_B
     Weights <- sapply(seq(1,mg),function(j){
       res <- sum(sapply(seq(2,mg),function(p){
         tmp <- -(time[p]-time[p-1])^3/24*(mat_U[p,j]+mat_U[p-1,j])
