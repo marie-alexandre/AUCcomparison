@@ -5,8 +5,9 @@
 \title{T-statistic of the Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
 Stat_test_Delta_AUC_Group_Specific(MEM_Pol_group, Group1, Group2, time.G1,
-  time.G2, method = "trapezoid", Group.dependence = TRUE,
-  Averaged = FALSE, conf_level = 0.95, alternative = "two.sided")
+  time.G2, common.interval = TRUE, method = "trapezoid",
+  Group.dependence = TRUE, Averaged = FALSE, conf_level = 0.95,
+  alternative = "two.sided")
 }
 \arguments{
 \item{MEM_Pol_group}{A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}.
@@ -38,6 +39,8 @@ If \code{dynamic.type} is defined as 'spline':
 \item{time.G1}{a numerical vector of time points (x-axis coordinates) to use for the Group1 AUC calculation.}
 
 \item{time.G2}{a numerical vector of time points (x-axis coordinates) to use for the Group2 AUC calculation.}
+
+\item{common.interval}{a logical scalar. If FALSE, the difference of AUC is calculated as the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the difference of AUC is estimated on a common interval of time defined as the intersect of the two group-specific interval (see \link[AUCcomparison]{Group_specific_Delta_AUC_estimation} for more details about calculation).}
 
 \item{method}{a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.}
 

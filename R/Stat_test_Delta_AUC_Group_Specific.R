@@ -27,6 +27,7 @@
 #' @param Group2 a character scalar indicating the name of the second group whose marginal dynamics must be considered. This group name must belong to the set of groups involved in the MEM (see \code{Groups} vector in \code{MEM_Pol_group}).
 #' @param time.G1 a numerical vector of time points (x-axis coordinates) to use for the Group1 AUC calculation.
 #' @param time.G2 a numerical vector of time points (x-axis coordinates) to use for the Group2 AUC calculation.
+#' @param common.interval a logical scalar. If FALSE, the difference of AUC is calculated as the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the difference of AUC is estimated on a common interval of time defined as the intersect of the two group-specific interval (see \link[AUCcomparison]{Group_specific_Delta_AUC_estimation} for more details about calculation).
 #' @param method a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.
 #' @param Group.dependence a logical scalar indicating whether the two groups, whose the difference of AUC (\eqn{\Delta}AUC) is studied, are considered as dependent. By default, this variable is defined as TRUE.
 #' @param Averaged a logical scalar. If TRUE, the function return the difference of normalized AUC (nAUC) where nAUC is computated as the AUC divided by the range of time of calculation. If FALSE (default), the classic AUC is calculated.
@@ -65,15 +66,23 @@
 #' @export 
 #' @importFrom stats pnorm qnorm
 
-Stat_test_Delta_AUC_Group_Specific <- function(MEM_Pol_group,Group1,Group2,time.G1,time.G2,method="trapezoid",Group.dependence=TRUE,Averaged=FALSE,conf_level=0.95,alternative="two.sided"){
+Stat_test_Delta_AUC_Group_Specific <- function(MEM_Pol_group,Group1,Group2,time.G1,time.G2,common.interval=TRUE,method="trapezoid",Group.dependence=TRUE,Averaged=FALSE,conf_level=0.95,alternative="two.sided"){
+  # Estimation of the Difference of AUC
+  Delta_AUC <- Group_specific_Delta_AUC_estimation(MEM_Pol_group=MEM_Pol_group,Group1=Group1,Group2=Group2,time.G1=time.G1,time.G2=time.G2,common.interval=common.interval,method=method,Averaged=Averaged)
+  # Estimation of its variance
+  Var_Delta_AUC <- Group_specific_Var_Delta_AUC_estimation(MEM_Pol_group=MEM_Pol_group,Group1=Group1,Group2=Group2,time.G1=time.G1,time.G2=time.G2,method=method,Group.dependence=Group.dependence,Averaged=Averaged)
+  # Estimation of the AUC
+  if(common.interval == TRUE){
+    min.time.interval <- max(min(time.G1,na.rm=TRUE),min(time.G2,na.rm=TRUE),na.rm=TRUE)
+    max.time.interval <- min(max(time.G1,na.rm=TRUE),max(time.G2,na.rm=TRUE),na.rm=TRUE)
+    time.G1 <- time.G1[which(time.G1 >= min.time.interval & time.G1 <= max.time.interval)]
+    time.G2 <- time.G2[which(time.G2 >= min.time.interval & time.G2 <= max.time.interval)]
+  }
   AUC_G1 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group,Groups=Group1,time=time.G1,method=method,Averaged=Averaged)
   AUC_G2 <- Group_specific_AUC_estimation(MEM_Pol_group=MEM_Pol_group,Groups=Group2,time=time.G2,method=method,Averaged=Averaged)
   AUCs <- c(AUC_G1,AUC_G2)
   names(AUCs) <- c(Group1,Group2)
-  # Estimation of the Difference of AUC
-  Delta_AUC <- Group_specific_Delta_AUC_estimation(MEM_Pol_group=MEM_Pol_group,Group1=Group1,Group2=Group2,time.G1=time.G1,time.G2=time.G2,method=method,Averaged=Averaged)
-  # Estimation of its variance
-  Var_Delta_AUC <- Group_specific_Var_Delta_AUC_estimation(MEM_Pol_group=MEM_Pol_group,Group1=Group1,Group2=Group2,time.G1=time.G1,time.G2=time.G2,method=method,Group.dependence=Group.dependence,Averaged=Averaged)
+  
   # Estimation of the statistic
   Tstat <- (Delta_AUC)/sqrt(Var_Delta_AUC)
   # Estimation of the Pvalue

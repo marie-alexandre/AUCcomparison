@@ -26,7 +26,7 @@
 #' @param time a numerical vector of time points (x-axis coordinates) or a list of numerical vectors (with as much elements than the number of groups in \code{Groups}).
 #' @param Groups  a vector indicating the names of the groups belonging to the set of groups involved in \code{MEM_Pol_group} for which we want to estimate the AUC  (a subset or the entire set of groups involved in the model can be considered). If NULL (default), the AUC for all the groups involved the MEM is calculated.
 #' @param method a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with the "not-a-knot" spline boundary conditions. 
-#' @param Averaged a logical scalar. If TRUE, the function return the normalized AUC (nAUC) computed as the AUC divided by the range of the time calculation. If FALSE (default), the classic AUC is calculated.
+#' @param Averaged a logical scalar. If TRUE, the function return the normalized AUC (nAUC) computed as the AUC divided by the range of the time calculation. If FALSE (default), the classic AUC is calculated. (See \link[AUCcomparison]{Group_specific_AUC_estimation} for more details about calculation)
 #' 
 #' @return A numerical vector containing the estimation of the variance of the AUC (or nAUC) for each group defined in the \code{Groups} vector.
 #' 
