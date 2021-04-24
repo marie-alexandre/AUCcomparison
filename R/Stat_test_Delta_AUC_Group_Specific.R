@@ -55,8 +55,6 @@
 #' Test <- Stat_test_Delta_AUC_Group_Specific(MEM_Pol_group=MEM_estimation,Group1="Group1",Group2="Group2",
 #'                                                    time.G1=unique(data$time[which(data$Group=="Group1")]),
 #'                                                    time.G2=unique(data$time[which(data$Group=="Group2")]))
-#'
-
 #' 
 #' @seealso 
 #'  \code{\link[AUCcomparison]{MEM_Polynomial_Group_structure}},

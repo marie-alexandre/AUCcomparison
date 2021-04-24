@@ -110,9 +110,9 @@ Group_specific_Var_Delta_AUC_estimation <- function(MEM_Pol_group,Group1,Group2,
     min.time.interval <- max(min(time.G1,na.rm=TRUE),min(time.G2,na.rm=TRUE),na.rm=TRUE)
     max.time.interval <- min(max(time.G1,na.rm=TRUE),max(time.G2,na.rm=TRUE),na.rm=TRUE)
     if(min.time.interval > max.time.interval){
-      stop("Impossible to estimate the difference of AUC on the common interval of time for the two group: the inrestection of the two intervals is equal to an empty interval.")
+      stop("Impossible to estimate the difference of AUC on the common interval of time for the two groups: the inrestection of the two intervals is equal to an empty interval.")
     }else if(min.time.interval == max.time.interval){
-      stop(paste("Impossible to estimate the difference of AUC on the common interval of time for the two group: the inrestection of the two intervals is equal to a single time point:",min.time.interval))
+      stop(paste("Impossible to estimate the difference of AUC on the common interval of time for the two groups: the inrestection of the two intervals is equal to a single time point:",min.time.interval))
     }else{
       time.G1 <- time.G1[which(time.G1 >= min.time.interval & time.G1 <= max.time.interval)]
       time.G2 <- time.G2[which(time.G2 >= min.time.interval & time.G2 <= max.time.interval)]
