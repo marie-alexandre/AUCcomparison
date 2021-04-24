@@ -156,9 +156,17 @@ ANOVA_AUC_Group_Specific <- function(MEM_Pol_group,Groups,Time_groups,Nb_id_grou
   # Bartlett test 
   if(bartlettTest == TRUE){
     # Estimation of the individual AUC
-    individual_AUC <- plyr::ddply(.data=data.with.method,.variables = .(id,Group),summarise,
-                                  AUC=as.numeric(value%*%AUC_time_weights_estimation(time,method=unique(method)))/diff(range(time)),
-                                  nAUC=as.numeric(value%*%AUC_time_weights_estimation(time,method=unique(method))))
+    individuals <- unique(data$id)
+    individual_AUC <- NULL
+    for(id in 1:length(individuals)){
+      data_id <- data[which(data$id == individuals[id]),]
+      tmp_AUC <- as.numeric(data_id$value%*%AUC_time_weights_estimation(data_id$time,method=method))/diff(range(data_id$time))
+      tmp_nAUC <- as.numeric(data_id$value%*%AUC_time_weights_estimation(data_id$time,method=method))
+      individual_AUC <- rbind(individual_AUC,data.frame(id=individuals[id],Group=unique(data_id$Group),AUC=tmp_AUC,nAUC=tmp_nAUC,stringsAsFactors = FALSE))
+    }
+    # individual_AUC <- plyr::ddply(.data=data.with.method,.variables = .(id,Group),here(summarise),
+    #                               AUC=as.numeric(value%*%AUC_time_weights_estimation(time,method=unique(method)))/diff(range(time)),
+    #                               nAUC=as.numeric(value%*%AUC_time_weights_estimation(time,method=unique(method))))
     if(Averaged){
       bartlett_test <- stats::bartlett.test(nAUC~Group,data=individual_AUC)
     }else{

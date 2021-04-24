@@ -18,7 +18,10 @@ Imports:
   lmec,
   matlib,
   splines,
-  ArgumentCheck
+  ArgumentCheck,
+  dplyr,
+  gtools,
+  plyr
 Suggests: 
     testthat,
     mathjaxr,
