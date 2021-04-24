@@ -222,7 +222,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
       if(isFALSE(is.numeric(y$Group) || is.integer(y$Group) || is.character(y$Group))){
         ArgumentCheck::addError(
           msg = "The variable 'Group' provided in the dataframe 'y' must be a vector of numerics or integers or characters.",
-          argcheck = Check_Group
+          argcheck = Check_group
         )
       }
       if(isFALSE(is.null(Group))){
@@ -364,7 +364,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
         if(length(y) != length(Group)){
           ArgumentCheck::addError(
             msg = paste("The variables 'y' and 'Group' must have the same size:",
-                        lenght(y),"rows in y and",length(Group),"elements in Group",sep=" "),
+                        length(y),"rows in y and",length(Group),"elements in Group",sep=" "),
             argcheck = Check_group
           )
         }
@@ -852,17 +852,17 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
       group_intercept <- rep(group_intercept,Nb_groups)
     }
     if(length(Boundary.knots_group) == 1 || is.null(Boundary.knots_group)){
-      Boundary.knots_group <- setNames(lapply(seq(1,Nb_groups),function(g) return(Boundary.knots_group)),Groups)
+      Boundary.knots_group <- stats::setNames(lapply(seq(1,Nb_groups),function(g) return(Boundary.knots_group)),Groups)
     }
     if(length(df_group) == 1 || is.null(df_group)){
-      df_group <- setNames(lapply(seq(1,Nb_groups),function(g) return(df_group)),Groups)
+      df_group <- stats::setNames(lapply(seq(1,Nb_groups),function(g) return(df_group)),Groups)
     }
     
     if(Adaptive %in% c("group","both")){
       # Research of optimal knots for each group
-      knots_group <- setNames(lapply(seq(1,Nb_groups), function(g) Optimal_knot_research(data=data[which(data$Group == Groups[g]),],degree=degree_group[g],minknot=min_knots_group,maxknot=max_knots_group,criteria=knotnumcrit)),Groups)
+      knots_group <- stats::setNames(lapply(seq(1,Nb_groups), function(g) Optimal_knot_research(data=data[which(data$Group == Groups[g]),],degree=degree_group[g],minknot=min_knots_group,maxknot=max_knots_group,criteria=knotnumcrit)),Groups)
     }else if(is.null(knots_group) || isTRUE(is.list(knots_group) & length(knots_group) == 1 )){
-      knots_group <- setNames(lapply(seq(1,Nb_groups), function(g) knots_group),Groups)
+      knots_group <- stats::setNames(lapply(seq(1,Nb_groups), function(g) knots_group),Groups)
     }
     
     for(g in 1:Nb_groups){
@@ -870,7 +870,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
       if(is.null(Boundary.knots_group[[g]])){
         Covariate_spline_group <- splines::bs(x=data_group$x,knots=knots_group[[g]],df=df_group[[g]],degree=degree_group[g])
       }else{
-        Covariate_spline_group <- splines::bs(x=data_group$x,knots=Adaptive_Knot_groups[[g]],df=df_group[[g]],degree=degree_group[g],
+        Covariate_spline_group <- splines::bs(x=data_group$x,knots=knots_group[[g]],df=df_group[[g]],degree=degree_group[g],
                                               Boundary.knots=Boundary.knots_group[[g]])
       }
       tmp_pop_covariate <- rbind(matrix(0,nrow=nrow(data[which(data$Group != Groups[g] & as.numeric(rownames(data)) < as.numeric(rownames(data_group))[1]),]),ncol=ncol(Covariate_spline_group)),
@@ -910,17 +910,17 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
   }else if(ind_dyn_type == "spline"){
     if(Adaptive %in% c("individual","both")){
       # Research of optimal knots for each individual
-      knots_ind <- setNames(lapply(seq(1,length(IDs)),function(i) Optimal_knot_research(data=data[which(data$Id == IDs[i]),],degree=degree_ind,minknot=min_knots_ind,maxknot=max_knots_ind,criteria=knotnumcrit)),IDs)
+      knots_ind <- stats::setNames(lapply(seq(1,length(IDs)),function(i) Optimal_knot_research(data=data[which(data$Id == IDs[i]),],degree=degree_ind,minknot=min_knots_ind,maxknot=max_knots_ind,criteria=knotnumcrit)),IDs)
     }else if(length(knots_ind)==1 || is.null(knots_ind)){
-      knots_ind <- setNames(lapply(seq(1,length(IDs)),function(i) return(knots_ind)),IDs)
+      knots_ind <- stats::setNames(lapply(seq(1,length(IDs)),function(i) return(knots_ind)),IDs)
     }else if(length(knots_ind) == Nb_groups){
-      knots_ind <- setNames(lapply(seq(1,length(IDs)),function(i) return(knots_ind[[unique(data$Group[which(data$Id == IDs[i])])]])),IDs) 
+      knots_ind <- stats::setNames(lapply(seq(1,length(IDs)),function(i) return(knots_ind[[unique(data$Group[which(data$Id == IDs[i])])]])),IDs) 
     }
     tmp_rnd_covariate <- NULL
     for(i in 1:length(IDs)){
       data_pat <- data[which(data$Id == IDs[i]),]
       if(same_base_group_ind & marginal_dyn_type == "spline"){
-        covariate_spline_pat <- predict(Bsplines_groups[[unique(data_pat$Group)]],newx=data_pat$x)
+        covariate_spline_pat <- splines::predict(Bsplines_groups[[unique(data_pat$Group)]],newx=data_pat$x)
       }else{
         if(is.null(Boundary.knots_ind)){
           covariate_spline_pat <- splines::bs(data_pat$x,df=df_ind,knots=knots_ind[[i]],degree=degree_ind)
@@ -950,7 +950,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
   }else{
     marginal.dyn.feature[["spline.degree"]] <- degree_group
     marginal.dyn.feature[["adaptive.splines"]] <- Adaptive %in% c("group","both")
-    marginal.dyn.feature[["knots"]] <- setNames(lapply(seq(1,Nb_groups),function(g){
+    marginal.dyn.feature[["knots"]] <- stats::setNames(lapply(seq(1,Nb_groups),function(g){
       if(is.null(knots_group[[g]])){
         if(is.null(df_group[[g]]) || df_group[[g]] <= degree_group[g]){
           return(knots_group[[g]])
@@ -977,7 +977,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
       names(res) <- Groups[g]
       return(res)
     })
-    marginal.dyn.feature[["boundary.knots"]] <- setNames(lapply(seq(1,Nb_groups),function(g){
+    marginal.dyn.feature[["boundary.knots"]] <- stats::setNames(lapply(seq(1,Nb_groups),function(g){
       res <- Boundary.knots_group[[g]]
       if(is.null(res)){
         res <- range(data$x[which(data$Group == Groups[g])])
@@ -1002,7 +1002,7 @@ MEM_Polynomial_Group_structure <- function(y,x=NULL,Group=NULL,Id=NULL,Cens=NULL
         if(is.null(unique(knots_ind)[[1]])){
           individual.dyn.feature[["knots"]] <- "defined by bs function"
         }else if(length(unique(knots_ind)) == Nb_groups){
-          individual.dyn.feature[["knots"]] <- setNames(unique(knots_ind),Groups)
+          individual.dyn.feature[["knots"]] <- stats::setNames(unique(knots_ind),Groups)
         }else{
           individual.dyn.feature[["knots"]] <- unique(knots_ind)[[1]]
         }

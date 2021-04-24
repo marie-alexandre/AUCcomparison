@@ -62,8 +62,8 @@ Delta_AUC_1 <- Group_specific_Delta_AUC_estimation(MEM_Pol_group=MEM_estimation_
                                                    time.G1=unique(data$time[which(data$Group=="Group1")]),
                                                    time.G2=unique(data$time[which(data$Group=="Group2")]))
 
-Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
- # We build the variable 'MEM_estimation_2' with the results of MEM estimation obtained for two groups 
+# Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
+# We build the variable 'MEM_estimation_2' with the results of MEM estimation obtained for two groups 
 MEM_estimation_2 <- list(Model_estimation=c(1.077,0.858,-0.061,0.0013,0.887,-0.066,0.0014), # c(global.intercept,beta1.G1,beta2.G1,beta2.G1,beta1.G2,beta2.G2,beta3.G2)
                         Model_features=list(Groups=c("Group1","Group2"),
                                             Marginal.dyn.feature=list(dynamic.type="polynomial",intercept=c(global.intercept=TRUE,group.intercept1=FALSE,group.intercept2=FALSE),polynomial.degree=c(3,3))))

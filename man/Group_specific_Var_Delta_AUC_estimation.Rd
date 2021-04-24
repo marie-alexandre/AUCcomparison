@@ -65,8 +65,8 @@ Var_Delta_AUC_estimation <- Group_specific_Var_Delta_AUC_estimation(MEM_Pol_grou
                                                                     time.G1=unique(data$time[which(data$Group=="Group1")]),
                                                                     time.G2=unique(data$time[which(data$Group=="Group2")]))
                                                                     
-Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
- # We build the variable 'MEM_Pol_group.1' with the results of MEM estimation obtained for two groups 
+# Example 2: We consider results of MEM estimation from another source. We have to give build the variable 'MEM_Pol_group' with the good structure
+# We build the variable 'MEM_Pol_group.1' with the results of MEM estimation obtained for two groups 
 Covariance_Matrix_1 <- matrix(rnorm(7*7,mean=0,sd=0.01),ncol=7,nrow=7) # Generation of random matrix
 Covariance_Matrix_1 <- Covariance_Matrix_1 \%*\% t(Covariance_Matrix_1) # Transform the matrix into symmetric one
 MEM_Pol_group.1 <- list(Model_estimation=Covariance_Matrix_1, # Covariance matrix of fixed effects for all parameters
