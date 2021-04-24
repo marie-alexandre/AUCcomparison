@@ -39,7 +39,7 @@ If \code{dynamic.type} is defined as 'spline':
 
 \item{time.G2}{a numerical vector of time points (x-axis coordinates) to use for the variance of the Group2 AUC calculation.}
 
-\item{common.interval}{a logical scalar. If FALSE, the variance of difference of AUC is calculated as the variance of the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the variance is estimated on a common interval of time defined as the intersect of the two group-specific interval (see @details for more details).}
+\item{common.interval}{a logical scalar. If FALSE, the variance of difference of AUC is calculated as the variance of the difference of AUCs where the AUC of each group is calculated on its specific interval of time. If TRUE (default), the variance is estimated on a common interval of time defined as the intersect of the two group-specific interval (see \link[AUCcomparison]{Group_specific_Delta_AUC_estimation} for more details about calculation.).}
 
 \item{method}{a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this verion, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.}
 

@@ -32,12 +32,13 @@
 #' @param Averaged a logical scalar. If TRUE, the function return the difference of normalized AUC (nAUC) where nAUC is computated as the AUC divided by the range of time of calculation. If FALSE (default), the classic AUC is calculated.
 #' 
 #' @details The difference of area under the curve between the two groups of interest is calculated as an approximation of the difference of the integrals of the expected value of the estimated outcome Y specific to the two groups g1 and g2.
-#' Assuming a time interval [0,Tg1] for the group 1 and [0,Tg2] for the group 2, the difference of AUC is then calculated as
-#' \mjsdeqn{\Delta AUC = \int_0^{T_g2} E(\hat{Y_g2})(t) dt - \int_0^{T_g1} E(\hat{Y_g1})(t) dt}
-#' Similarly, the difference of the normalized AUC (\mjsdeqn{\Delta nAUC}) for these two same groups is then defined as 
-#' \mjsdeqn{\Delta nAUC = \frac{1}{T_g2}\int_0^{T_g2} E(\hat{Y_g2})(t) dt - \frac{1}{T_g1}\int_0^{T_g1} E(\hat{Y_g1})(t) dt}
-#' When we want to estimate the difference of AUC (or nAUC) on the same time interval for the two groups (\code{common.interval} = TRUE), we define \mjseqn{T = \min(T_{g1},T_{g2}))} and we calculate the difference of AUC as 
-#' \mjsdeqn{\Delta AUC = \int_0^{T} E(\hat{Y_g2})(t) dt - \int_0^{T} E(\hat{Y_g1})(t) dt ; \Delta nAUC = \frac{1}{T}\int_0^{T} E(\hat{Y_g2})(t) dt - \frac{1}{T}\int_0^{T} E(\hat{Y_g1})(t) dt}
+#' Assuming a time interval \mjseqn{\[0,T_{g1}\]} for the group 1 and \mjseqn{\[0,T_{g2}\]} for the group 2, the difference of AUC is then calculated as
+#' \mjsdeqn{\Delta AUC = \int_0^{T_{g_2}} E(\hat{Y_{g_2}})(t) dt - \int_0^{T_{g_1}} E(\hat{Y_{g_1}})(t) dt}
+#' Similarly, the difference of the normalized AUC (\mjseqn{\Delta nAUC}) for these two same groups is then defined as 
+#' \mjsdeqn{\Delta nAUC = \frac{1}{T_{g_2}}\int_0^{T_{g_2}} E(\hat{Y_{g_2}})(t) dt - \frac{1}{T_{g_1}}\int_0^{T_{g_1}} E(\hat{Y_{g_1}})(t) dt}
+#' When we want to estimate the difference of AUC (or nAUC) on the same time interval for the two groups (\code{common.interval} = TRUE), we define \mjseqn{T = \min(T_{g_1},T_{g_2}))} and we calculate the difference of AUC as 
+#' \mjsdeqn{\Delta AUC = \int_0^{T} E(\hat{Y_{g_2}})(t) dt - \int_0^{T} E(\hat{Y_{g_1}})(t) dt}
+#' \mjsdeqn{\Delta nAUC = \frac{1}{T}\int_0^{T} E(\hat{Y_{g_2}})(t) dt - \frac{1}{T}\int_0^{T} E(\hat{Y_{g_1}})(t) dt}
 #' 
 #' @return A numerical scalar defined as \mjseqn{\Delta \text{AUC} = \text{AUC}_2 - \text{AUC}_1} (or \mjseqn{\Delta\text{nAUC} = \text{nAUC}_2 - \text{nAUC}_1})  with \mjseqn{\text{AUC}_1} (or \mjseqn{\text{nAUC}_1}) and  \mjseqn{\text{AUC}_2} (or \mjseqn{\text{nAUC}_2}) being respectively estimated as the AUC (or nAUC) for the Group1 and for the Group2.
 #' 

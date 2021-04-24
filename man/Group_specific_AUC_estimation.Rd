@@ -45,10 +45,10 @@ A numerical vector containing the estimation of the AUC (or nAUC) for each group
 \loadmathjax This function estimates the area under the curve of marginal dynamics modeled by group-structured polynomials or B-spline curves.
 }
 \details{
-The area under the curve for the group g of interest is calculated as an approximation of the integral of the expected value of the estimated outcome Y specific to the group g. Assuming a time interval \mjsdeqn{\link{0,T_g}}, the AUC is then calculated as
+The area under the curve for the group g of interest is calculated as an approximation of the integral of the expected value of the estimated outcome Y specific to the group g. Assuming a time interval \mjseqn{[0,T_g]}, the AUC is then calculated as
 \mjsdeqn{AUC_g = \int_0^{T_g} E(\hat{Y_g})(t) dt}
-Similarly, the normalized AUC (nAUC) fir this same group is then defined as
-\mjsdeqn{AUC_g = \frac{1}{T_g}\int_0^{T_g} E(\hat{Y_g})(t) dt}
+Similarly, the normalized AUC (nAUC) for this same group is then defined as
+\mjsdeqn{nAUC_g = \frac{1}{T_g}\int_0^{T_g} E(\hat{Y_g})(t) dt}
 }
 \examples{
 # Download of data
