@@ -4,32 +4,46 @@
 \alias{Stat_test_Delta_AUC_Group_Specific}
 \title{T-statistic of the Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
-Stat_test_Delta_AUC_Group_Specific(MEM_Pol_group, Group1, Group2, time.G1,
-  time.G2, common.interval = TRUE, method = "trapezoid",
-  Group.dependence = TRUE, Averaged = FALSE, conf_level = 0.95,
-  alternative = "two.sided")
+Stat_test_Delta_AUC_Group_Specific(
+  MEM_Pol_group,
+  Group1,
+  Group2,
+  time.G1,
+  time.G2,
+  common.interval = TRUE,
+  method = "trapezoid",
+  Group.dependence = TRUE,
+  Averaged = FALSE,
+  conf_level = 0.95,
+  alternative = "two.sided"
+)
 }
 \arguments{
 \item{MEM_Pol_group}{A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}.
 
-A list containing: \tabular{ll}{
-\code{Model_estimation} \tab a list containing at least two elements: (1) the vector of the marginal (fixed) parameters estimates (at least for the groups whose AUC is to estimate), labeled \emph{'beta'} ;  (2) the variance-covariance matrix of these parameters, labeled \emph{'varFix'} (see \link[AUCcomparison]{MEM_Polynomial_Group_structure} for details about the parameter order). \cr
-\code{Model_features} \tab a list of at least 2 elements: \cr
-\tab 1. \code{Groups}  -  a vector indicating the names of the groups whose fixed parameters are given. \cr
-\tab 2. \code{Marginal.dyn.feature}  -  a list summarizing the features of the marginal dynamics defined in the model:  \cr
-\tab \itemize{
-\item \code{dynamic.type} - a character scalar indicating the chosen type of marginal dynamics. Options are 'polynomial' or 'spline'
-\item \code{intercept} - a logical vector summarizing choices about global and group-specific intercepts (Number of groups + 1) elements whose elements are named as ('global.intercept','group.intercept1', ..., 'group.interceptG') if G Groups are defined in \code{MEM_Pol_group}. For each element of the vector, if TRUE, the considered intercept is considered as included in the model (see \emph{Examples}).
-
-If \code{dynamic.type} is defined as 'polynomial':
-\item \code{polynomial.degree} - an integer vector indicating the degree of polynomial functions, one value for each group.
-
-If \code{dynamic.type} is defined as 'spline':
-\item \code{spline.degree} - an integer vector indicating the degree of B-spline curves, one for each group.
-\item \code{knots} - a list of group-specific internal knots used to build B-spline basis (one numerical vector for each group) (see \link[splines]{bs} for more details).
-\item \code{df} - a numerical vector of group-specific degrees of freedom used to build B-spline basis, (one for each group).
-\item \code{boundary.knots} - a list of group-specific boundary knots used to build B-spline  basis (one vector for each group) (see \link[splines]{bs} for more details).
-} \cr
+A list containing:
+\itemize{
+\item \code{Model_estimation}: a list containing at least 2 elements: \enumerate{
+\item the vector of the marginal (fixed) parameters estimates (at least for the groups whose AUC is to estimate), labeled \emph{'beta'}.
+\item the variance-covariance matrix of these parameters, labeled \emph{'varFix'} (see \link[AUCcomparison]{MEM_Polynomial_Group_structure} for details about the parameter order).
+}
+\item \code{Model_features}: a list of at least 2 elements: \enumerate{
+\item \code{Groups}: a vector indicating the names of the groups whose fixed parameters are given.
+\item \code{Marginal.dyn.feature}: a list summarizing the features of the marginal dynamics defined in the model:
+\itemize{
+\item \code{dynamic.type}: a character scalar indicating the chosen type of marginal dynamics. Options are 'polynomial' or 'spline'.
+\item \code{intercept}: a logical vector summarizing choices about global and group-specific intercepts (Number of groups + 1) elements whose elements are named as ('global.intercept','group.intercept1', ..., 'group.interceptG') if G Groups are defined in \code{MEM_Pol_group}. For each element of the vector, if TRUE, the considered intercept is considered as included in the model (see \emph{Examples}).
+}
+If \code{dynamic.type} is defined as 'polynomial':\itemize{
+\item \code{polynomial.degree}: an integer vector indicating the degree of polynomial functions, one value for each group.
+}
+If \code{dynamic.type} is defined as 'spline':\itemize{
+\item \code{spline.degree}: an integer vector indicating the degree of B-spline curves, one for each group.
+\item \code{knots}: a list of group-specific internal knots used to build B-spline basis (one numerical vector for each group) (see \link[splines]{bs} for more details).
+\item \code{df}: a numerical vector of group-specific degrees of freedom used to build B-spline basis, (one for each group).
+\item \code{boundary.knots}: a list of group-specific boundary knots used to build B-spline  basis (one vector for each group) (see \link[splines]{bs} for more details).
+}
+}
 }}
 
 \item{Group1}{a character scalar indicating the name of the first group whose marginal dynamics must be considered. This group name must belong to the set of groups involved in the MEM (see \code{Groups} vector in \code{MEM_Pol_group}).}
@@ -53,33 +67,40 @@ If \code{dynamic.type} is defined as 'spline':
 \item{alternative}{a character scalar specifying the alternative hypothesis. Options are 'two.sided' (default), 'greater' or 'less'.}
 }
 \value{
-A list containing:\tabular{ll}{
-\code{Tstat} \tab the value of the t-statistic \cr
-\code{Pvalue} \tab the P-value \cr
-\code{Conf.int} \tab the confidence interval \cr
-\code{Delta_AUC} \tab the estimated value of the difference of AUC between the two groups (nAUC2 - nAUC1) (see \code{\link[AUCcomparison]{Group_specific_Delta_AUC_estimation}} for more details). \cr
-\code{AUCs} \tab the estimated values of the Group-specific AUC (AUC1 and AUC 2)  (see \code{\link[AUCcomparison]{Group_specific_AUC_estimation}} for more details). \cr
+A list containing:\itemize{
+\item \code{Tstat}: the value of the t-statistic.
+\item \code{Pvalue}:  the P-value.
+\item \code{Conf.int}: the confidence interval.
+\item \code{Delta_AUC}: the estimated value of the difference of AUC between the two groups (nAUC2 - nAUC1) (see \code{\link[AUCcomparison]{Group_specific_Delta_AUC_estimation}} for more details).
+\item \code{AUCs}: the estimated values of the Group-specific AUC (AUC1 and AUC 2)
+(see \code{\link[AUCcomparison]{Group_specific_AUC_estimation}} for more details).
 }
 }
 \description{
 This function performs the t-test evaluating whether the difference of area under the curve of two marginal dynamics, modeled by group-structured polynomials or B-spline curve in Mixed-Effects model, is null.
 }
 \examples{
-# Download of data
+\donttest{# Download of data
 data("HIV_Simu_Dataset_Delta01_cens")
 data <- HIV_Simu_Dataset_Delta01_cens
 
 # Change factors in character vectors
 data$id <- as.character(data$id) ; data$Group <- as.character(data$Group)
 
-MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=data$Group,Id=data$id,Cens=data$cens)
-Test <- Stat_test_Delta_AUC_Group_Specific(MEM_Pol_group=MEM_estimation,Group1="Group1",Group2="Group2",
-                                                   time.G1=unique(data$time[which(data$Group=="Group1")]),
-                                                   time.G2=unique(data$time[which(data$Group=="Group2")]))
+MEM_estimation <- MEM_Polynomial_Group_structure(y=data$VL,x=data$time,Group=data$Group,
+                                                 Id=data$id,Cens=data$cens)
+                                                 
+time_group1 <- unique(data$time[which(data$Group=="Group1")])
+time_group2 <- unique(data$time[which(data$Group=="Group2")])
+Test <- Stat_test_Delta_AUC_Group_Specific(MEM_Pol_group=MEM_estimation,
+                                           Group1="Group1",Group2="Group2",
+                                           time.G1=time_group1,time.G2=time_group2)
+}
 
 }
 \seealso{
 \code{\link[AUCcomparison]{MEM_Polynomial_Group_structure}},
 \code{\link[AUCcomparison]{Group_specific_Delta_AUC_estimation}},
+
 \code{\link[AUCcomparison]{Group_specific_AUC_estimation}}
 }

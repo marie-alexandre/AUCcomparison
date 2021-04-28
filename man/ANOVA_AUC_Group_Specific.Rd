@@ -4,32 +4,47 @@
 \alias{ANOVA_AUC_Group_Specific}
 \title{One-way analysis of variance of group specific AUC}
 \usage{
-ANOVA_AUC_Group_Specific(MEM_Pol_group, Groups, Time_groups, Nb_id_group,
-  common.interval = TRUE, method = "trapezoid", Averaged = FALSE,
-  conf_level = 0.95, bartlettTest = FALSE, data = NULL,
-  twobytwo.comp = TRUE, alternative = "two.sided")
+ANOVA_AUC_Group_Specific(
+  MEM_Pol_group,
+  Groups,
+  Time_groups,
+  Nb_id_group,
+  common.interval = TRUE,
+  method = "trapezoid",
+  Averaged = FALSE,
+  conf_level = 0.95,
+  bartlettTest = FALSE,
+  data = NULL,
+  twobytwo.comp = TRUE,
+  alternative = "two.sided"
+)
 }
 \arguments{
 \item{MEM_Pol_group}{A list with similar structure than the output provided by the function \link[AUCcomparison]{MEM_Polynomial_Group_structure}.
 
-A list containing: \tabular{ll}{
-\code{Model_estimation} \tab a list containing at least two elements: (1) the vector of the marginal (fixed) parameters estimates (at least for the groups whose AUC is to estimate), labeled \emph{'beta'} ;  (2) the variance-covariance matrix of these parameters, labeled \emph{'varFix'} (see \link[AUCcomparison]{MEM_Polynomial_Group_structure} for details about the parameter order). \cr
-\code{Model_features} \tab a list of at least 2 elements: \cr
-\tab 1. \code{Groups}  -  a vector indicating the names of the groups whose fixed parameters are given. \cr
-\tab 2. \code{Marginal.dyn.feature}  -  a list summarizing the features of the marginal dynamics defined in the model:  \cr
-\tab \itemize{
-\item \code{dynamic.type} - a character scalar indicating the chosen type of marginal dynamics. Options are 'polynomial' or 'spline'
-\item \code{intercept} - a logical vector summarizing choices about global and group-specific intercepts (Number of groups + 1) elements whose elements are named as ('global.intercept','group.intercept1', ..., 'group.interceptG') if G Groups are defined in \code{MEM_Pol_group}. For each element of the vector, if TRUE, the considered intercept is considered as included in the model (see \emph{Examples}).
-
-If \code{dynamic.type} is defined as 'polynomial':
-\item \code{polynomial.degree} - an integer vector indicating the degree of polynomial functions, one value for each group.
-
-If \code{dynamic.type} is defined as 'spline':
-\item \code{spline.degree} - an integer vector indicating the degree of B-spline curves, one for each group.
-\item \code{knots} - a list of group-specific internal knots used to build B-spline basis (one numerical vector for each group) (see \link[splines]{bs} for more details).
-\item \code{df} - a numerical vector of group-specific degrees of freedom used to build B-spline basis, (one for each group).
-\item \code{boundary.knots} - a list of group-specific boundary knots used to build B-spline  basis (one vector for each group) (see \link[splines]{bs} for more details).
-} \cr
+A list containing:
+\itemize{
+\item \code{Model_estimation}: a list containing at least 2 elements: \enumerate{
+\item the vector of the marginal (fixed) parameters estimates (at least for the groups whose AUC is to estimate), labeled \emph{'beta'}.
+\item the variance-covariance matrix of these parameters, labeled \emph{'varFix'} (see \link[AUCcomparison]{MEM_Polynomial_Group_structure} for details about the parameter order).
+}
+\item \code{Model_features}: a list of at least 2 elements: \enumerate{
+\item \code{Groups}: a vector indicating the names of the groups whose fixed parameters are given.
+\item \code{Marginal.dyn.feature}: a list summarizing the features of the marginal dynamics defined in the model:
+\itemize{
+\item \code{dynamic.type}: a character scalar indicating the chosen type of marginal dynamics. Options are 'polynomial' or 'spline'.
+\item \code{intercept}: a logical vector summarizing choices about global and group-specific intercepts (Number of groups + 1) elements whose elements are named as ('global.intercept','group.intercept1', ..., 'group.interceptG') if G Groups are defined in \code{MEM_Pol_group}. For each element of the vector, if TRUE, the considered intercept is considered as included in the model (see \emph{Examples}).
+}
+If \code{dynamic.type} is defined as 'polynomial':\itemize{
+\item \code{polynomial.degree}: an integer vector indicating the degree of polynomial functions, one value for each group.
+}
+If \code{dynamic.type} is defined as 'spline':\itemize{
+\item \code{spline.degree}: an integer vector indicating the degree of B-spline curves, one for each group.
+\item \code{knots}: a list of group-specific internal knots used to build B-spline basis (one numerical vector for each group) (see \link[splines]{bs} for more details).
+\item \code{df}: a numerical vector of group-specific degrees of freedom used to build B-spline basis, (one for each group).
+\item \code{boundary.knots}: a list of group-specific boundary knots used to build B-spline  basis (one vector for each group) (see \link[splines]{bs} for more details).
+}
+}
 }}
 
 \item{Groups}{a vector indicating the names of the groups belonging to the set of groups involved in \code{MEM_Pol_group} we want to include in the ANOVA (a subset or the entire set of groups involved in the model can be considered).}
@@ -42,18 +57,18 @@ If \code{dynamic.type} is defined as 'spline':
 
 \item{method}{a character scalar indicating the interpolation method to use to estimate the AUC. Options are 'trapezoid' (default), 'lagrange' and 'spline'. In this version, the 'spline' interpolation is implemented with "not-a-knot" spline boundary conditions.}
 
-\item{Averaged}{a logical scalar. If TRUE, AUC are evaluated as normalized AUC (nAUC) where nAUC is computated as the AUC divided by the range of time of calculation. If FALSE (default), the classic AUC is calculated (see \link[AUCcomparison]{Group_specific_AUC_estimation} for more details).}
+\item{Averaged}{a logical scalar. If TRUE, AUC are evaluated as normalized AUC (nAUC) where nAUC is computed as the AUC divided by the range of time of calculation. If FALSE (default), the classic AUC is calculated (see \link[AUCcomparison]{Group_specific_AUC_estimation} for more details).}
 
 \item{conf_level}{a numerical value (between 0 and 1) indicating the confidence level of the interval. By default, this variable is fixed at 0.95}
 
-\item{bartlettTest}{PARAM_DESCRIPTION, Default: FALSE}
+\item{bartlettTest}{a logial scalar indicating whether a bartettTest must be performed before the ANOVA. Default: FALSE}
 
 \item{data}{a dataframe gathering data for the groups involved in the ANOVA that have been fitted by the MEM model summarized in \code{MEM_Pol_group}. This dataframe has to contain at least 4 columns:
 \itemize{
-\item A column labelled 'Group' containing the information of the group for each observation (the same Groups than those defined in \code{Groups}).
-\item A column labelled 'id' containing the information of individual identifier.
-\item A column labelled 'time' containing information about the time of observations.
-\item A column labelled 'value' containing the longitudinal observations.
+\item A column labeled 'Group' containing the information of the group for each observation (the same Groups than those defined in \code{Groups}).
+\item A column labeled 'id' containing the information of individual identifier.
+\item A column labeled 'time' containing information about the time of observations.
+\item A column labeled 'value' containing the longitudinal observations.
 }}
 
 \item{twobytwo.comp}{a logical scalar indicating whether all the 2 by 2 comparisons must be evaluated after the ANOVA. Default: TRUE.}
@@ -61,33 +76,38 @@ If \code{dynamic.type} is defined as 'spline':
 \item{alternative}{a character scalar specifying the alternative hypothesis for the 2 by 2 comparisons. Options are 'two.sided' (default), 'greater' or 'less'.}
 }
 \value{
-A list of three elements elements:\tabular{ll}{
-\code{bartlettTest} \tab a list of class "htest" corresponding to the Bartlett's test results (see \link[stats]{bartlett.test} for more details). If the test is not performed, a character 'Not performed' is returned. \cr
-\code{ANOVA_F} \tab a list containg: \cr
-\tab 1. \code{Followup} - a vector of two numerical values indicating the time interval when \code{Common.interval} = TRUE. If \code{common.interval}=FALSE, if variable is not included in the list.\cr
-\tab 2. \code{Estimated_AUCs} - the vector of AUC estimated for each group involved in the ANOVA. \cr
-\tab 3. \code{Estimated_VarAUCs} - the vector of the intra group variance estimated by the MEM (equiv. squared Standard error). \cr
-\tab 4. \code{Between} - a vector gathering the between groups sum of squares, degree of freedom and variance with var=SS/df. \cr
-\tab 5. \code{Within} - a vector gathering the within groups sum of squares, degree of dreedom and variance with var=SS/df. \cr
-\tab 6. \code{ANOVA_F} - the value of the ANOVA statistic F. \cr
-\tab 7. \code{Pvalue} - the value of the Pvalue. \cr
-\tab 8. \code{Reject_H0} - a boolean indicating whether the null hypothesis (all AUC are equals) is rejected. \cr
-\code{TwobyTwo_Comparison} \tab a list of K sublists where each sublist k gathers results of the kth comparison. If the 2 by 2 comparison is nor performed, a character 'Not performed' is returned. \cr
-\tab 1. \code{Groups} - a vector indicating the 2 compared groups. \cr
-\tab 2. \code{Estimated.AUC} - a vector of the 2 estimated values of AUC. \cr
-\tab 3. \code{Delta_AUC} - the value of the difference of AUC between the 2 compared groups. \cr
-\tab 4. \code{Tstat} - the value of the t-statistic \cr
-\tab 5. \code{Pvalue} - the P-value (without any adjustment on multiple tests) \cr
-\tab 6. \code{Conf.int} - the confidence interval \cr
-\tab 7. \code{Adjusted.Pvalue} - the P-value adjusted on multiple testing by "bonferroni" method (see \link[stats]{p.adjust} for more details). \cr
+A list of three elements elements:
+\itemize{
+\item \code{bartlettTest}: a list of class "htest" corresponding to the Bartlett's test results (see \link[stats]{bartlett.test} for more details). If the test is not performed, a character 'Not performed' is returned.
+\item \code{ANOVA_F}: a list containing:
+\enumerate{
+\item \code{Followup}: a vector of two numerical values indicating the time interval when \code{Common.interval} = TRUE. If \code{common.interval}=FALSE, if variable is not included in the list.
+\item \code{Estimated_AUCs}: the vector of AUC estimated for each group involved in the ANOVA.
+\item \code{Estimated_VarAUCs}: the vector of the intra group variance estimated by the MEM (equiv. squared Standard error).
+\item \code{Between}: a vector gathering the between groups sum of squares, degree of freedom and variance with var=SS/df.
+\item \code{Within}: a vector gathering the within groups sum of squares, degree of dreedom and variance with var=SS/df.
+\item \code{ANOVA_F}: the value of the ANOVA statistic F.
+\item \code{Pvalue}: the value of the Pvalue.
+\item \code{Reject_H0}: a boolean indicating whether the null hypothesis (all AUC are equals) is rejected.
+}
+\item \code{TwobyTwo_Comparison}: a list of K sublists where each sublist k gathers results of the kth comparison. If the 2 by 2 comparison is nor performed, a character 'Not performed' is returned.
+\enumerate{
+\item \code{Groups}: a vector indicating the 2 compared groups.
+\item \code{Estimated.AUC}: a vector of the 2 estimated values of AUC.
+\item \code{Delta_AUC}: the value of the difference of AUC between the 2 compared groups.
+\item \code{Tstat}: the value of the t-statistic.
+\item \code{Pvalue}: the P-value (without any adjustment on multiple tests).
+\item \code{Conf.int}: the confidence interval.
+\item \code{Adjusted.Pvalue}: the P-value adjusted on multiple testing by "bonferroni" method (see \link[stats]{p.adjust} for more details).
+}
 }
 }
 \description{
-This function performs a one-way ANOVA to compare the the area under the curves of multiple groups marginal dynamics, modeled by group-structured polynomials or B-spline curve in Mixed-Effects model.
+This function performs a one-way ANOVA to compare the area under the curves of multiple groups marginal dynamics, modeled by group-structured polynomials or B-spline curve in Mixed-Effects model.
 Before performing the  ANOVA, this function can parform a Bartlett's test to evaluate homoscedasticity. In addition to ANOVA, users can decide to evaluate all the 2 by 2 comparisons.
 }
 \examples{
-# Download of data
+\donttest{ # Download of data
 data("HIV_Simu_Dataset_Delta01_cens")
 data <- HIV_Simu_Dataset_Delta01_cens
 
@@ -95,23 +115,24 @@ colnames(data) <- c("id","time","Group","value","cens")
 # Change factors in character vectors
 data$id <- as.character(data$id) ; data$Group <- as.character(data$Group)
 
-MEM_estimation <- MEM_Polynomial_Group_structure(y=data$value,x=data$time,Group=data$Group,Id=data$id,Cens=data$cens)
+MEM_estimation <- MEM_Polynomial_Group_structure(y=data$value,x=data$time,Group=data$Group,
+                                                 Id=data$id,Cens=data$cens)
 
 Groups <- unique(data$Group)
-Time_groups <- lapply(seq(1,length(Groups)),function(g) return(unique(data$time[which(data$Group == Groups[g])])))
-Nb_id_group <- sapply(seq(1,length(Groups)),function(g) return(length(unique(data$id[which(data$Group == Groups[g])]))))
+Time_groups <- lapply(seq(1,length(Groups)),function(g) 
+                           return(unique(data$time[which(data$Group == Groups[g])])))
+Nb_id_group <- sapply(seq(1,length(Groups)),function(g) 
+                           return(length(unique(data$id[which(data$Group == Groups[g])]))))
 
-ANOVA_test <- ANOVA_AUC_Group_Specific(MEM_Pol_group=MEM_estimation,Groups=Groups,Time_groups=Time_groups,
-                                       Nb_id_group=Nb_id_group,common.interval=TRUE,method="trapezoid",Averaged=FALSE,conf_level=0.95,
-                                       bartlettTest=TRUE,data=data,twobytwo.comp=TRUE,alternative="two.sided")
-                                                   
+ANOVA_test <- ANOVA_AUC_Group_Specific(MEM_Pol_group=MEM_estimation,Groups=Groups,
+                                       Time_groups=Time_groups,Nb_id_group=Nb_id_group,
+                                       common.interval=TRUE,method="trapezoid",Averaged=FALSE,
+                                       conf_level=0.95,bartlettTest=TRUE,data=data,
+                                       twobytwo.comp=TRUE,alternative="two.sided")
+}                                                    
                                                    
 }
 \seealso{
-\code{\link[ArgumentCheck]{addError}}
-\code{\link[dplyr]{reexports}}
-\code{\link[plyr]{ddply}}
 \code{\link[AUCcomparison]{AUC_time_weights_estimation}}
-\code{\link[stats]{bartlett.test}},\code{\link[stats]{FDist}}
-\code{\link[gtools]{combinations}}
+\code{\link[stats]{bartlett.test}}
 }

@@ -4,13 +4,15 @@
 \name{HIV_Simu_Dataset_Delta01}
 \alias{HIV_Simu_Dataset_Delta01}
 \title{HIV RNA Load Simulated Data for Delta AUC = -0.1}
-\format{A data frame with 4 columns and 1000 rows:
+\format{
+A data frame with 4 columns and 1000 rows:
 \tabular{ll}{
 \code{id} \tab The subject id. \cr
 \code{time} \tab Time of HIV RNA load measurements. \cr
 \code{Group} \tab Treatment group. \cr
 \code{VL} \tab The HIV RNA load measures. \cr
-}}
+}
+}
 \usage{
 HIV_Simu_Dataset_Delta01
 }

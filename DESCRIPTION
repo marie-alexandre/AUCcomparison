@@ -21,14 +21,15 @@ Imports:
   ArgumentCheck,
   dplyr,
   gtools,
-  plyr
+  plyr,
+  mathjaxr,
+  rmarkdown
+RdMacros:
+  mathjaxr
 Suggests: 
     testthat,
-    mathjaxr,
-    knitr,
-    rmarkdown
-RdMacros:
-    mathjaxr
+    knitr
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
+    mathjaxr
 VignetteBuilder: knitr

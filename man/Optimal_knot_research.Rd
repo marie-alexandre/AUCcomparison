@@ -4,8 +4,14 @@
 \alias{Optimal_knot_research}
 \title{Optimal Research B-Spline Internal Knots}
 \usage{
-Optimal_knot_research(data, degree = 3, minknot = 2, maxknot = 2,
-  criteria = "AIC", ...)
+Optimal_knot_research(
+  data,
+  degree = 3,
+  minknot = 2,
+  maxknot = 2,
+  criteria = "AIC",
+  ...
+)
 }
 \arguments{
 \item{data}{a data frame containing the independent variable (\emph{y}) and the dependent one (\emph{x}).}

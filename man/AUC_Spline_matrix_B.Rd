@@ -2,7 +2,7 @@
 % Please edit documentation in R/AUC_Spline_matrix_B.R
 \name{AUC_Spline_matrix_B}
 \alias{AUC_Spline_matrix_B}
-\title{Spline interpolation Method - Matrix of the zero order derivative coefficients}
+\title{Spline Interpolation Method - Matrix of the zero order derivative coefficients}
 \usage{
 AUC_Spline_matrix_B(time)
 }
@@ -16,9 +16,9 @@ a tridiagonal matrix corresponding to the weights of the variable of interest in
 \loadmathjax In the area under the curve calculation using the spline interpolation method, the vector of the second derivative of the outcome of interest \mjseqn{Y} is expressed as \mjseqn{A Y^{''} = B Y  + F}. This function calculate calculate the matrix B.
 }
 \details{
-The tridiagonal matrix \mjseqn{B} is defined as (for the "not-a-knot boundary conditions):
-The \mjseqn{j}th line of the matrix, \mjseqn{B_{[j,\ :]}} is given by
-\mjsdeqn{B_{[j,\ :]} = \left(0, \cdots, 0\right) \text{ if } j=1}
-\mjsdeqn{B_{[j,\ :]} = \left(0, \cdots, 0\right) \text{ if } j=m}
-\mjsdeqn{B_{[j,\ :]} = \left(0_1, \cdots, 0_{j-2}, \frac{1}{h_j},-\left[\frac{1}{h_j} + \frac{1}{h_{j+1}}\right], \frac{1}{h_{j+1}}, 0_{j+2}, \cdots, 0_{m} \right) \text{ otherwise }}
+The tridiagonal matrix \mjteqn{B}{B}{B} is defined as (for the "not-a-knot boundary conditions):
+The \mjteqn{j}{j}{j}th line of the matrix, \mjteqn{B_{[j,\ :]}}{B_{[j,\ :]}}{B_{[j,\ :]}} is given by
+\mjtdeqn{B_{[j,\ :]} = \left(0, \cdots, 0\right) \ if \ j=1}{B_{[j,\ :]} = \left(0, \cdots, 0\right) \ if \ j=1}{B_{[j,\ :]} = \left(0, \cdots, 0\right) \ if \ j=1}
+\mjtdeqn{B_{[j,\ :]} = \left(0, \cdots, 0\right) \ if \ j=m}{B_{[j,\ :]} = \left(0, \cdots, 0\right) \ if \ j=m}{B_{[j,\ :]} = \left(0, \cdots, 0\right) \ if \ j=m}
+\mjtdeqn{B_{[j,\ :]} = \left(0_1, \cdots, 0_{j-2}, \frac{1}{h_j},-\left[\frac{1}{h_j} + \frac{1}{h_{j+1}}\right], \frac{1}{h_{j+1}}, 0_{j+2}, \cdots, 0_{m} \right) \ otherwise }{B_{[j,\ :]} = \left(0_1, \cdots, 0_{j-2}, \frac{1}{h_j},-\left[\frac{1}{h_j} + \frac{1}{h_{j+1}}\right], \frac{1}{h_{j+1}}, 0_{j+2}, \cdots, 0_{m} \right) \ otherwise }{B_{[j,\ :]} = \left(0_1, \cdots, 0_{j-2}, \frac{1}{h_j},-\left[\frac{1}{h_j} + \frac{1}{h_{j+1}}\right], \frac{1}{h_{j+1}}, 0_{j+2}, \cdots, 0_{m} \right) \ otherwise }
 }

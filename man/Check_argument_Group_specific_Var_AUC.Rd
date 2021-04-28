@@ -4,8 +4,13 @@
 \alias{Check_argument_Group_specific_Var_AUC}
 \title{FUNCTION_TITLE}
 \usage{
-Check_argument_Group_specific_Var_AUC(MEM_Pol_group, time, Groups, method,
-  Averaged)
+Check_argument_Group_specific_Var_AUC(
+  MEM_Pol_group,
+  time,
+  Groups,
+  method,
+  Averaged
+)
 }
 \arguments{
 \item{MEM_Pol_group}{PARAM_DESCRIPTION}
@@ -26,8 +31,5 @@ FUNCTION_DESCRIPTION
 }
 \details{
 DETAILS
-}
-\seealso{
-\code{\link[ArgumentCheck]{addError}}
 }
 \keyword{internal}

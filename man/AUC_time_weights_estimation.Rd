@@ -18,19 +18,19 @@ A numerical scalar with same length than the vector \code{time} corresponding to
 \loadmathjax In matrix formulation, the area under a curve of interest, named \emph{Y}, can be expressed as matrix product of a vector of weights \emph{W} and the vector of the values of \emph{Y}. This function calculates the weights \emph{W} when AUC is calculated either by the trapezoid, the Lagrange or the Spline interpolation methods.
 }
 \details{
-In matrix formulation, the AUC of the outcome \mjseqn{Y} can be expressed as \mjseqn{\text{AUC} = W \cdot Y}, with \mjseqn{W} defined by the following expressions for the trapezoid, the Lagrange and the spline interpolation methods.
+In matrix formulation, the AUC of the outcome \mjteqn{Y}{Y}{Y} can be expressed as \mjteqn{AUC = W \cdot Y}{AUC = W \cdot Y}{AUC = W \cdot Y}, with \mjteqn{W}{W}{W} defined by the following expressions for the trapezoid, the Lagrange and the spline interpolation methods.
 
 \strong{Trapezoid method:}
-\mjsdeqn{W_j = \frac{t_{j+1} - t_j}{2} \text{ if } j=1}
-\mjsdeqn{W_j = \frac{t_{j} - t_{j-1}}{2} \text{ if } j=m}
-\mjsdeqn{W_j = \frac{t_{j+1} - t_{j-1}}{2} \text{ otherwise}}
+\mjtdeqn{W_j = \frac{t_{j+1} - t_j}{2} \ if \ j=1}{W_j = \frac{t_{j+1} - t_j}{2} \ if \ j=1}{W_j = \frac{t_{j+1} - t_j}{2} \ if \ j=1}
+\mjtdeqn{W_j = \frac{t_{j} - t_{j-1}}{2} \ if \ j=m}{W_j = \frac{t_{j} - t_{j-1}}{2} \ if \ j=m}{W_j = \frac{t_{j} - t_{j-1}}{2} \ if \ j=m}
+\mjtdeqn{W_j = \frac{t_{j+1} - t_{j-1}}{2} \ otherwise}{W_j = \frac{t_{j+1} - t_{j-1}}{2} \ otherwise}{W_j = \frac{t_{j+1} - t_{j-1}}{2} \ otherwise}
 
 \strong{Lagrange method:} (see \code{\link[AUCcomparison]{AUC_Lagrange_Cjp_coefficients}} for the definition of the Cjp coefficients)
-\mjsdeqn{W_j = \frac{C_{[2][j-1]}}{\prod_{l=0 ;\ l\neq (j-1)}^{P=2} (t_j-t_{j+1})} + \sum_{p=0}^{P=3} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \text{ if } j=1,2,3}
-\mjsdeqn{W_j = \frac{C_{[m][j-(m-2)]}}{\prod_{l=0 ;\ l\neq (j-(m-2))}^{P=2} (t_j-t_{j-2+l})} + \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \text{ if } j=m-2,m-1,m}
-\mjsdeqn{W_j = \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \text{ othermise}}
+\mjtdeqn{W_j = \frac{C_{[2][j-1]}}{\prod_{l=0 ;\ l\neq (j-1)}^{P=2} (t_j-t_{j+1})} + \sum_{p=0}^{P=3} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ if \ j=1,2,3}{W_j = \frac{C_{[2][j-1]}}{\prod_{l=0 ;\ l\neq (j-1)}^{P=2} (t_j-t_{j+1})} + \sum_{p=0}^{P=3} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ if \ j=1,2,3}{W_j = \frac{C_{[2][j-1]}}{\prod_{l=0 ;\ l\neq (j-1)}^{P=2} (t_j-t_{j+1})} + \sum_{p=0}^{P=3} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ if \ j=1,2,3}
+\mjtdeqn{W_j = \frac{C_{[m][j-(m-2)]}}{\prod_{l=0 ;\ l\neq (j-(m-2))}^{P=2} (t_j-t_{j-2+l})} + \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ if \ j=m-2,m-1,m}{W_j = \frac{C_{[m][j-(m-2)]}}{\prod_{l=0 ;\ l\neq (j-(m-2))}^{P=2} (t_j-t_{j-2+l})} + \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ if \ j=m-2,m-1,m}{W_j = \frac{C_{[m][j-(m-2)]}}{\prod_{l=0 ;\ l\neq (j-(m-2))}^{P=2} (t_j-t_{j-2+l})} + \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ if \ j=m-2,m-1,m}
+\mjtdeqn{W_j = \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ otherwise}{W_j = \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ otherwise}{W_j = \sum_{p=0}^{m-j} \frac{C_{[j-1+p][3-p]}}{\prod_{l=0 ;\ l\neq (3-p)}^{P=3} (t_j-t_{j-3+p+l})} \ otherwise}
 
 \strong{Spline method:}  (see \code{\link[AUCcomparison]{AUC_Spline_matrix_A}} and \code{\link[AUCcomparison]{AUC_Spline_matrix_B}} for the definition of Matrices A and B)
-\mjsdeqn{W_j = \sum_{p=2}^m -\frac{(t_p-t_{p-1})^3}{24}(u_{pj}+u_{p-1j}) + W_j^{trap.}}
-where \mjseqn{(u_{pj})} is the element \mjseqn{U(p,j)} with \mjseqn{U} a matrix defined as \mjseqn{U = A^{-1}B}.
+\mjtdeqn{W_j = \sum_{p=2}^m -\frac{(t_p-t_{p-1})^3}{24}(u_{pj}+u_{p-1j}) + W_j^{trap.}}{W_j = \sum_{p=2}^m -\frac{(t_p-t_{p-1})^3}{24}(u_{pj}+u_{p-1j}) + W_j^{trap.}}{W_j = \sum_{p=2}^m -\frac{(t_p-t_{p-1})^3}{24}(u_{pj}+u_{p-1j}) + W_j^{trap.}}
+where \mjteqn{(u_{pj})}{(u_{pj})}{(u_{pj})} is the element \mjteqn{U(p,j)}{U(p,j)}{U(p,j)} with \mjteqn{U}{U}{U} a matrix defined as \mjteqn{U = A^{-1}B}{U = A^{-1}B}{U = A^{-1}B}.
 }
