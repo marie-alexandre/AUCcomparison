@@ -4,7 +4,7 @@
 \alias{AUC_Lagrange_Cjp_coefficients}
 \title{Time Dependent Coefficients Cjp for AUC Lagrange Interpolation Method}
 \usage{
-AUC_Lagrange_Cjp_coefficients(ind_j, ind_p, t)
+AUC_Lagrange_Cjp_coefficients(ind_j,ind_p,t)
 }
 \arguments{
 \item{ind_j}{a numerical scalar indicating the value of the index j.}

@@ -5,11 +5,8 @@
 \title{Area Under The Curve of Group-Specific Polynomial Marginal Dynamics}
 \usage{
 Group_specific_AUC_estimation(
-  MEM_Pol_group,
-  time,
-  Groups = NULL,
-  method = "trapezoid",
-  Averaged = FALSE
+  MEM_Pol_group,time,Groups = NULL,
+  method = "trapezoid",Averaged = FALSE
 )
 }
 \arguments{

@@ -5,17 +5,11 @@
 \title{One-way analysis of variance of group specific AUC}
 \usage{
 ANOVA_AUC_Group_Specific(
-  MEM_Pol_group,
-  Groups,
-  Time_groups,
-  Nb_id_group,
-  common.interval = TRUE,
-  method = "trapezoid",
-  Averaged = FALSE,
-  conf_level = 0.95,
-  bartlettTest = FALSE,
-  data = NULL,
-  twobytwo.comp = TRUE,
+  MEM_Pol_group,Groups,Time_groups,
+  Nb_id_group,common.interval = TRUE,
+  method = "trapezoid",Averaged = FALSE,
+  conf_level = 0.95,bartlettTest = FALSE,
+  data = NULL,twobytwo.comp = TRUE,
   alternative = "two.sided"
 )
 }

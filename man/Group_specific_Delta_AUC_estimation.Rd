@@ -5,14 +5,9 @@
 \title{Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
 Group_specific_Delta_AUC_estimation(
-  MEM_Pol_group,
-  Group1,
-  Group2,
-  time.G1,
-  time.G2,
-  common.interval = TRUE,
-  method = "trapezoid",
-  Averaged = FALSE
+  MEM_Pol_group,Group1,Group2,
+  time.G1,time.G2,common.interval = TRUE,
+  method = "trapezoid",Averaged = FALSE
 )
 }
 \arguments{

@@ -5,12 +5,8 @@
 \title{Optimal Research B-Spline Internal Knots}
 \usage{
 Optimal_knot_research(
-  data,
-  degree = 3,
-  minknot = 2,
-  maxknot = 2,
-  criteria = "AIC",
-  ...
+  data,degree = 3,minknot = 2,maxknot = 2,
+  criteria = "AIC",...
 )
 }
 \arguments{

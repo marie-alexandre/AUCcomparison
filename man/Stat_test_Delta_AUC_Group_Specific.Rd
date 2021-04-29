@@ -5,16 +5,10 @@
 \title{T-statistic of the Difference of AUC of Two Group-Specific Polynomial Marginal Dynamics}
 \usage{
 Stat_test_Delta_AUC_Group_Specific(
-  MEM_Pol_group,
-  Group1,
-  Group2,
-  time.G1,
-  time.G2,
-  common.interval = TRUE,
-  method = "trapezoid",
-  Group.dependence = TRUE,
-  Averaged = FALSE,
-  conf_level = 0.95,
+  MEM_Pol_group,Group1,Group2,
+  time.G1,time.G2,common.interval = TRUE,
+  method = "trapezoid",Group.dependence = TRUE,
+  Averaged = FALSE,conf_level = 0.95,
   alternative = "two.sided"
 )
 }
